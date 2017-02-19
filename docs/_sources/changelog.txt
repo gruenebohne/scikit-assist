@@ -9,6 +9,7 @@ Releases
 .. * :release:`0.0.3 <2017-01-28>`
 .. * automatic reload on file change
 .. * automatic result_computation on prediction change
+
 * :release:`0.0.2 <2017-01-21>`
 * transparent file compression
 * :release:`0.0.1 <2016-12-11>`
