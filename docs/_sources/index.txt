@@ -1,19 +1,19 @@
-.. scikit-assistant documentation master file, created by Tillmann Radmer
-
-=====================================
-scikit-assist: a data science manager
-=====================================
+.. scikit-assist documentation master file, created by Tillmann Radmer
 
 .. toctree::
-   :maxdepth: 2
-   :hidden:
+	:maxdepth: 2
+	:hidden:
 
-   changelog
-   documentation
+	changelog
+	api
+
+.. include:: intro.rst
 
 Indices and tables
 ==================
+:ref:`genindex`
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+:ref:`modindex`
+
+:ref:`search`
+

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Documentation &#8212; scikit-assist 0.1 documentation</title>
+    <title>API &#8212; scikit-assist 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -28,7 +28,7 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="scikit-assist 0.1 documentation" href="index.html" />
     <link rel="next" title="Library" href="_code/library.html" />
-    <link rel="prev" title="Releases" href="changelog.html" />
+    <link rel="prev" title="Release History" href="changelog.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -64,8 +64,8 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Releases</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release History</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_code/library.html">Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_code/experiment.html">Experiment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_code/model.html">Model</a></li>
@@ -78,7 +78,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="changelog.html" title="previous chapter">Releases</a></li>
+      <li>Previous: <a href="changelog.html" title="previous chapter">Release History</a></li>
       <li>Next: <a href="_code/library.html" title="next chapter">Library</a></li>
   </ul></li>
 </ul>
@@ -100,9 +100,8 @@
           <div class="body" role="main">
             
   <div class="section" id="module-skassist">
-<span id="documentation"></span><h1>Documentation<a class="headerlink" href="#module-skassist" title="Permalink to this headline">¶</a></h1>
-<p>scikit-assistant is a module that supports the management and execution of data 
-science experiments. Every experiment is defined by a dataset and a validation 
+<span id="api"></span><h1>API<a class="headerlink" href="#module-skassist" title="Permalink to this headline">¶</a></h1>
+<p>In scikit-assist an experiment is defined by a dataset and a validation 
 strategy. A dataset must be provided by a pandas DataFrame. The validation strategy 
 is specified by a list of lists, each containing up to three indices into the 
 dataset (training, testing and validation set).</p>
@@ -112,7 +111,7 @@ used as features.</p>
 <dl class="docutils">
 <dt>Example:</dt>
 <dd><p class="first">A new experiment with a DataFrame <code class="docutils literal"><span class="pre">data</span></code> can be specified as follows:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scikit</span><span class="o">-</span><span class="n">assistant</span> <span class="kn">import</span> <span class="nn">Library</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skassist</span> <span class="k">import</span> <span class="n">Library</span>
 
 <span class="n">cross_val</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">[</span><span class="n">tr1</span><span class="p">,</span><span class="n">te1</span><span class="p">,</span><span class="n">va1</span><span class="p">],</span>  <span class="c1"># 1. validation split</span>
@@ -159,7 +158,7 @@ are also implicitly created anytime a new section starts.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/documentation.txt"
+      <a href="_sources/api.txt"
           rel="nofollow">Page source</a>
     </div>
 

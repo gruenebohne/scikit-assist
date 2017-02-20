@@ -1,8 +1,8 @@
 .. Changelog history with features and issues, created by Tillmann Radmer
 
-========
-Releases
-========
+===============
+Release History
+===============
 
 .. * :release:`0.0.5 <2017-03-31>`
 .. * First tagged/PyPI'd version.

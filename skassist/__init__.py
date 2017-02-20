@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""scikit-assistant is a module that supports the management and execution of data 
-science experiments. Every experiment is defined by a dataset and a validation 
+"""In scikit-assist an experiment is defined by a dataset and a validation 
 strategy. A dataset must be provided by a pandas DataFrame. The validation strategy 
 is specified by a list of lists, each containing up to three indices into the 
 dataset (training, testing and validation set). 
@@ -12,7 +11,7 @@ used as features.
 Example:
 	A new experiment with a DataFrame ``data`` can be specified as follows::
 		
-		from scikit-assistant import Library
+		from skassist import Library
 
 		cross_val = [
 			[tr1,te1,va1],	# 1. validation split
