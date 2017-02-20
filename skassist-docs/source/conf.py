@@ -5,7 +5,7 @@
 # sphinx-build -b html docs/source/ docs/build/
 #
 #
-# scikit-assistant documentation build configuration file, created by
+# scikit-assist documentation build configuration file, created by
 # sphinx-quickstart on Sun Dec 11 12:07:17 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -106,7 +106,7 @@ html_sidebars = {
 html_theme_options = {
     'description': "A flexible library for managing and running data science experiments",
     'github_user': 'gruenebohne',
-    'github_repo': 'scikit-assistant',
+    'github_repo': 'scikit-assist',
     'fixed_sidebar': True,
 }
 
@@ -115,9 +115,12 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_favicon = '_media/favicon.ico'
+html_logo = '_media/scikit-assist-logo.png'
+
 # -- Options for releases output ------------------------------------------
 extensions.append('releases')
-releases_github_path = 'gruenebohne/scikit-assistant'
+releases_github_path = 'gruenebohne/scikit-assist'
 # Our pre-0.x releases are unstable / mix bugs+features
 releases_unstable_prehistory = True
 
@@ -125,7 +128,7 @@ releases_unstable_prehistory = True
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'scitkit-assistant-help'
+htmlhelp_basename = 'scitkit-assist-help'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -152,7 +155,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'scikit-assistant.tex', 'scikit-assistant Documentation',
+    (master_doc, 'scikit-assist.tex', 'scikit-assist Documentation',
      'Tillmann Radmer', 'manual'),
 ]
 
@@ -162,7 +165,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'scikit-assistant', 'scikit-assistant Documentation',
+    (master_doc, 'scikit-assist', 'scikit-assist Documentation',
      [author], 1)
 ]
 
@@ -173,8 +176,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'scikit-assistant', 'scikit-assistant Documentation',
-     author, 'scikit-assistant', 'One line description of project.',
+    (master_doc, 'scikit-assist', 'scikit-assist Documentation',
+     author, 'scikit-assist', 'One line description of project.',
      'Miscellaneous'),
 ]
 
