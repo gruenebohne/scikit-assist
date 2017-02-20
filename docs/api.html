@@ -17,7 +17,8 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,9 +27,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="scikit-assist 0.1 documentation" href="index.html" />
     <link rel="next" title="Library" href="_code/library.html" />
-    <link rel="prev" title="Release History" href="changelog.html" />
+    <link rel="prev" title="scikit-assist: a data science manager" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -64,7 +64,6 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release History</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_code/library.html">Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_code/experiment.html">Experiment</a></li>
@@ -72,13 +71,15 @@
 <li class="toctree-l2"><a class="reference internal" href="_code/files.html">LocalFiles</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="changelog.html" title="previous chapter">Release History</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">scikit-assist: a data science manager</a></li>
       <li>Next: <a href="_code/library.html" title="next chapter">Library</a></li>
   </ul></li>
 </ul>
@@ -99,8 +100,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skassist">
-<span id="api"></span><h1>API<a class="headerlink" href="#module-skassist" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-skassist">
+<span id="introduction"></span><h2>Introduction<a class="headerlink" href="#module-skassist" title="Permalink to this headline">¶</a></h2>
 <p>In scikit-assist an experiment is defined by a dataset and a validation 
 strategy. A dataset must be provided by a pandas DataFrame. The validation strategy 
 is specified by a list of lists, each containing up to three indices into the 
@@ -131,16 +136,6 @@ used as features.</p>
 </dl>
 <p>Section breaks are created by resuming unindented text. Section breaks
 are also implicitly created anytime a new section starts.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<ul class="last simple">
-<li>automatic reload on file change</li>
-<li>automatic result_computation on prediction change</li>
-<li>transparent file compression</li>
-<li>DBMS integration (MongoDB, MySQL)</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -154,11 +149,11 @@ are also implicitly created anytime a new section starts.</p>
       &copy;2016, Tillmann Radmer.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/api.txt"
+      <a href="_sources/api.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

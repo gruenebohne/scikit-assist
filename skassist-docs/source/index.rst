@@ -3,17 +3,15 @@
 .. toctree::
 	:maxdepth: 2
 	:hidden:
+	:titlesonly:
 
-	changelog
 	api
+	changelog
+	roadmap
+	:ref:`genindex`
+	:ref:`modindex`
+	:ref:`search`
 
 .. include:: intro.rst
 
-Indices and tables
-==================
-:ref:`genindex`
-
-:ref:`modindex`
-
-:ref:`search`
 

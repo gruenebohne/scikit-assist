@@ -28,13 +28,6 @@ Example:
 
 Section breaks are created by resuming unindented text. Section breaks
 are also implicitly created anytime a new section starts.
-
-.. todo::
-	* automatic reload on file change
-	* automatic result_computation on prediction change
-	* transparent file compression
-	* DBMS integration (MongoDB, MySQL)
-
 """
 
 # expose the library class

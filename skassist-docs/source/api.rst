@@ -4,13 +4,17 @@
 API
 ===
 
-.. automodule:: skassist
-   :members:
-
 .. toctree::
    :hidden:
+   :titlesonly:
 
    _code/library
    _code/experiment
    _code/model
    _code/files
+
+Introduction
+============
+
+.. automodule:: skassist
+   :members:
