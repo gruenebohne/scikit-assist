@@ -10,11 +10,10 @@ Release History
 .. * automatic reload on file change
 .. * automatic result_computation on prediction change
 
-* :release:`0.0.2 <2017-01-21>`
-* transparent file compression
-* :release:`0.0.1 <2016-12-11>`
+* :release:`0.0.1 <2017-02-20>`
 * First Python module release.
 * First code documentation.
+* transparent file compression
 
 .. toctree::
    :hidden:

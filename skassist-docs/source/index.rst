@@ -6,12 +6,12 @@
 	:titlesonly:
 
 	api
+	
 	changelog
 	roadmap
-	:ref:`genindex`
-	:ref:`modindex`
-	:ref:`search`
 
 .. include:: intro.rst
 
-
+:ref:`genindex`
+:ref:`modindex`
+:ref:`search`

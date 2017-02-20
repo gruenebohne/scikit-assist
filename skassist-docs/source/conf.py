@@ -105,9 +105,16 @@ html_sidebars = {
 #
 html_theme_options = {
     'description': "A flexible library for managing and running data science experiments",
+    'github_button': True,
     'github_user': 'gruenebohne',
     'github_repo': 'scikit-assist',
+    'github_banner': False,
+    'travis_button': False,
+    'codecov_button': True,
     'fixed_sidebar': True,
+    'logo_name': False,
+    'analytics_id': 'UA-92281124-1',
+    'show_powered_by': False,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
