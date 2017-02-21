@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .files import LocalFiles
 from .experiment import Experiment
 
@@ -19,31 +21,25 @@ class Library(LocalFiles):
 
     This class supports the creation and deletion of new experiments
 
-    "Properties created with the ``@property`` decorator should be documented
-    in the property's getter method."
+    The constructor method tries to read the content of the library folder. When
+    looking for experiments it only considers folder with a name string starting 
+    in `exp_`. Everything else is ignored.
+
+    Args:
+        lib_folder (:obj:`str`, optional): Absolute/relative path to the root directory.
 
     Attributes:
-        experiments (list): A list of experiments found in the library folder.
-        path (str): Path to the root directory.
+        experiments (:obj:`list`): A list of experiments found in the library folder.
+
+        path (:obj:`str`): Path to the root directory.
+
+    .. todo::
+        * Implement a :obj:`search` function for finding experiments (by name, date, dataset size, etc.)
 
     """
 
     # __________________________________________________________________________
-    def __init__(self, lib_folder=join(expanduser("~"),'Datasets','SLIB')):
-        """Library constructor.
-
-        The __init__ method tries to read the content of the library folder. When
-        looking for experiments it only considers folder with a name string 
-        starting in 'exp_'. Everything else is ignored.
-
-        Note:
-            Do not include the `self` parameter in the ``Args`` section.
-
-        Args:
-            lib_folder (:obj:`str`, optional): Absolute/relative path to the root directory.
-
-        """
-
+    def __init__(self, lib_folder=join('.','library')):
         LocalFiles.__init__(self, lib_folder)
 
         if not exists(self.path):
@@ -65,8 +61,32 @@ class Library(LocalFiles):
             )
 
     # __________________________________________________________________________
-    # create new experiment
     def add(self, name, df, skf, features, description=''):
+        """Adds an experiment based on the dataset `df` to the library. A folder
+        `'exp_'+name+timestamp` is created for the experiment in the library
+        folder. It will hold the dataset and cross-validation masks, as well as
+        sub-folders for each model.
+        
+        Args:
+            name (:obj:`str`): 
+                A name for the experiment. Will be used together with the 
+                timestamp for storing the experiment.
+
+            df (:obj:`pandas.DataFrame`): 
+                The dataset as a Pandas DataFrame.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array of indices, each being one cross-validation split.
+
+            features (:obj:`list`): 
+                A list of column names that are to be used as features during 
+                training.
+
+            description (:obj:`str`): 
+                A descriptive string of the dataset, experiment or changes to 
+                make finding stuff later easier.
+
+        """
         self.experiments.append(
             Experiment.New(
                 name,
@@ -79,8 +99,16 @@ class Library(LocalFiles):
         )
 
     # __________________________________________________________________________
-    # deletes the experiment at the given index from memory and permanent storage
     def delete(self, index):
+        """Deletes the experiment at the given index from memory and permanent 
+        storage.
+
+        Args:
+            index (:obj:`int`): 
+                Index of the experiment to delete. The index is sorted by name
+                and timestamp.
+
+        """
         # delete the experiment folder on disk
         self.experiments[index].delete()
         # remove the experminet from the maintained list

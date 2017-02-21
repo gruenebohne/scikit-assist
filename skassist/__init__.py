@@ -24,10 +24,14 @@ Example:
 		lib = Library()
 
 		lib.add('name_of_experiment', data, cross_val, features, 
-			'Some meaningful desription.') 
+			'Some meaningful desription.')
+
+		lib.exp[0].add()
 
 Section breaks are created by resuming unindented text. Section breaks
 are also implicitly created anytime a new section starts.
+
+.. moduleauthor:: Tillmann Radmer <tillmann.radmer@gmail.com>
 """
 
 # expose the library class

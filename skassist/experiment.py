@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .files import LocalFiles
 from .model import Model
 from .helpers import saveToFile
@@ -22,13 +23,15 @@ class Experiment(LocalFiles):
     associated with it. Evaluation and result calcualtion can be initiated
     for all models with the evaluate()
 
-    "Properties created with the ``@property`` decorator should be documented
-    in the property's getter method."
-
     Attributes:
-        experiments (list): A list of experiments found in the library folder.
-        path (str): Path to the root directory.
+        experiments (:obj:`list`): A list of experiments found in the library folder.
 
+        path (:obj:`str`): Path to the root directory.
+
+    .. todo::
+        * Implement :obj:`LibEstimator` base class that all models must inherit from. The base class ensures that the needed properties are implemented.
+        * Offer optional arguments in :func:`Experiment.add` for the LibEstimator properties when a user doesn't want to inherit from the base class!?
+    
     """
 
     # __________________________________________________________________________
@@ -55,6 +58,33 @@ class Experiment(LocalFiles):
     # __________________________________________________________________________
     @classmethod
     def New(cls, name, df, skf, features, lib_path, description=''):
+        """Factory method for creating a new Experiment instance given a name,
+        dataset, cross-validation mask and a list of features. The path to the
+        library in which the experiment is created must be given.
+
+        Args:
+            name (:obj:`str`): 
+                A name for the experiment. Will be used together with the 
+                timestamp for storing the experiment.
+
+            df (:obj:`pandas.DataFrame`): 
+                The dataset as a Pandas DataFrame.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array of indices, each being one cross-validation split.
+
+            features (:obj:`list`): 
+                A list of column names that are to be used as features during 
+                training.
+
+            lib_path (:obj:`str`): 
+                Path to the library in which the experiment is created.
+
+            description (:obj:`str`): 
+                A descriptive string of the dataset, experiment or changes to 
+                make finding stuff later easier.
+
+        """
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
         path = join(lib_path, 'exp_{0}_{1}'.format(name, timestamp))
 
@@ -82,6 +112,26 @@ class Experiment(LocalFiles):
 
     # __________________________________________________________________________
     def add(self, estimator):
+        """Adds a model to the experiment. 
+
+        The model instance needs four special attributes:
+            #. estimator.name (:obj:`str`): A name for the model.  
+
+            #. estimator.extra_features (:obj:`list`): 
+                A list of additional features that are needed by the model and 
+                are not in the :obj:`Experiment.features` property of the 
+                experiment. The extra features must be columns in the dataset.
+
+            #. estimator.target (:obj:`str`): Name of the target variable.
+
+            #. estimator.params (:obj:`list`): List of tunable parameters of the model.
+        
+        Args:
+            estimator (:obj:`AssistEstimator`): 
+                A name for the experiment. Will be used together with the 
+                timestamp for storing the experiment.
+
+        """
         features = self.meta['features']
         if type(estimator.extra_features) is list:
             all_features = features + estimator.extra_features

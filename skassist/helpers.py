@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pickle
 import bz2 # bz2.BZ2File
 import gzip # gzip.GzipFile

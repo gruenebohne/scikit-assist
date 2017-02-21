@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Model &#8212; scikit-assist 0.1 documentation</title>
+    <title>Model &#8212; scikit-assist 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -62,19 +62,7 @@
 
 
 
-
-
-    
-
-<p>
-<a href="https://codecov.io/github/gruenebohne/scikit-assist">
-    <img
-    alt="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    src="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    />
-</a>
-</p>
-<h3>Navigation</h3>
+<!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="library.html">Library</a></li>
@@ -87,22 +75,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../api.html">API</a><ul>
-      <li>Previous: <a href="experiment.html" title="previous chapter">Experiment</a></li>
-      <li>Next: <a href="files.html" title="next chapter">LocalFiles</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <!--<h3>Search</h3>-->
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" placeholder="Quick Search"/>
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -126,13 +104,42 @@ each cross-valudation split and makes and saves the predictions.</p>
 <p>The calc_results() can then be used to calculate a evaluation metric based on
 the predictions. The evaluation metric is defined by a function that is
 passed into calc_results().</p>
-<p>&#8220;Properties created with the <code class="docutils literal"><span class="pre">&#64;property</span></code> decorator should be documented
-in the property&#8217;s getter method.&#8221;</p>
 <dl class="docutils">
 <dt>Attributes:</dt>
-<dd>meta (dict): A dictionary holding meta information about the model.
-path (str): Path to the root directory.</dd>
+<dd><p class="first">meta (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>): A dictionary holding meta information about the model.</p>
+<p class="last">path (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): Path to the root directory.</p>
+</dd>
 </dl>
+<dl class="classmethod">
+<dt id="skassist.Model.New">
+<em class="property">classmethod </em><code class="descname">New</code><span class="sig-paren">(</span><em>estimator</em>, <em>name</em>, <em>experiment</em>, <em>target</em>, <em>features</em>, <em>experiment_path</em>, <em>modelParams={}</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.New" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory method for creating a new Model instance. The model is created
+in its sub-folder inside the <code class="xref py py-obj docutils literal"><span class="pre">experiment_path</span></code> folder.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>estimator (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A name for the experiment. Will be used together with the 
+timestamp for storing the experiment.</dd>
+<dt>name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A name for the experiment. Will be used together with the 
+timestamp for storing the experiment.</dd>
+<dt>experiment (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>Name of the experiment. Useful if the model folder is lost &amp; found.</dd>
+<dt>target (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>Name of the target variable. Must be a columns in the dataset.</dd>
+<dt>features (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): </dt>
+<dd>A list of column names that are to be used as features during 
+training.</dd>
+<dt>experiment_path (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>Path to the library in which the experiment is created.</dd>
+<dt>modelParams (<code class="xref py py-obj docutils literal"><span class="pre">dict</span></code>, optional): </dt>
+<dd>A dictionary with tunable model parameters.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .files import LocalFiles
 from .helpers import saveToFile
 
@@ -21,12 +23,10 @@ class Model(LocalFiles):
     the predictions. The evaluation metric is defined by a function that is
     passed into calc_results().
 
-    "Properties created with the ``@property`` decorator should be documented
-    in the property's getter method."
-
     Attributes:
-        meta (dict): A dictionary holding meta information about the model.
-        path (str): Path to the root directory.
+        meta (:obj:`dict`): A dictionary holding meta information about the model.
+        
+        path (:obj:`str`): Path to the root directory.
 
     """
 
@@ -43,6 +43,35 @@ class Model(LocalFiles):
     @classmethod
     def New(cls, estimator, name, experiment, target, features,
                  experiment_path, modelParams={}):
+        """Factory method for creating a new Model instance. The model is created
+        in its sub-folder inside the :obj:`experiment_path` folder.
+
+        Args:
+            estimator (:obj:`str`): 
+                A name for the experiment. Will be used together with the 
+                timestamp for storing the experiment.
+
+            name (:obj:`str`): 
+                A name for the experiment. Will be used together with the 
+                timestamp for storing the experiment.
+
+            experiment (:obj:`str`): 
+                Name of the experiment. Useful if the model folder is lost & found.
+
+            target (:obj:`str`): 
+                Name of the target variable. Must be a columns in the dataset.
+
+            features (:obj:`list`): 
+                A list of column names that are to be used as features during 
+                training.
+
+            experiment_path (:obj:`str`): 
+                Path to the library in which the experiment is created.
+
+            modelParams (:obj:`dict`, optional): 
+                A dictionary with tunable model parameters.
+
+        """
 
         # create the meta information
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')

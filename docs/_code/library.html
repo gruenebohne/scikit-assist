@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Library &#8212; scikit-assist 0.1 documentation</title>
+    <title>Library &#8212; scikit-assist 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -62,19 +62,7 @@
 
 
 
-
-
-    
-
-<p>
-<a href="https://codecov.io/github/gruenebohne/scikit-assist">
-    <img
-    alt="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    src="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    />
-</a>
-</p>
-<h3>Navigation</h3>
+<!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Library</a></li>
@@ -87,22 +75,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../api.html">API</a><ul>
-      <li>Previous: <a href="../api.html" title="previous chapter">API</a></li>
-      <li>Next: <a href="experiment.html" title="next chapter">Experiment</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <!--<h3>Search</h3>-->
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" placeholder="Quick Search"/>
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -118,16 +96,70 @@
 <h1>Library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="skassist.Library">
-<em class="property">class </em><code class="descclassname">skassist.</code><code class="descname">Library</code><span class="sig-paren">(</span><em>lib_folder='/Users/tillmannradmer/Datasets/SLIB'</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Library" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skassist.</code><code class="descname">Library</code><span class="sig-paren">(</span><em>lib_folder='./library'</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Library" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manages the root folder of the library.</p>
 <p>This class supports the creation and deletion of new experiments</p>
-<p>&#8220;Properties created with the <code class="docutils literal"><span class="pre">&#64;property</span></code> decorator should be documented
-in the property&#8217;s getter method.&#8221;</p>
+<p>The constructor method tries to read the content of the library folder. When
+looking for experiments it only considers folder with a name string starting 
+in <cite>exp_</cite>. Everything else is ignored.</p>
 <dl class="docutils">
+<dt>Args:</dt>
+<dd>lib_folder (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, optional): Absolute/relative path to the root directory.</dd>
 <dt>Attributes:</dt>
-<dd>experiments (list): A list of experiments found in the library folder.
-path (str): Path to the root directory.</dd>
+<dd><p class="first">experiments (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): A list of experiments found in the library folder.</p>
+<p class="last">path (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): Path to the root directory.</p>
+</dd>
 </dl>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>Implement a <code class="xref py py-obj docutils literal"><span class="pre">search</span></code> function for finding experiments (by name, date, dataset size, etc.)</li>
+</ul>
+</div>
+<dl class="method">
+<dt id="skassist.Library.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>df</em>, <em>skf</em>, <em>features</em>, <em>description=''</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Library.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an experiment based on the dataset <cite>df</cite> to the library. A folder
+<cite>&#8216;exp_&#8217;+name+timestamp</cite> is created for the experiment in the library
+folder. It will hold the dataset and cross-validation masks, as well as
+sub-folders for each model.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A name for the experiment. Will be used together with the 
+timestamp for storing the experiment.</dd>
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The dataset as a Pandas DataFrame.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array of indices, each being one cross-validation split.</dd>
+<dt>features (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): </dt>
+<dd>A list of column names that are to be used as features during 
+training.</dd>
+<dt>description (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A descriptive string of the dataset, experiment or changes to 
+make finding stuff later easier.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Library.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Library.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the experiment at the given index from memory and permanent 
+storage.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>index (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): </dt>
+<dd>Index of the experiment to delete. The index is sorted by name
+and timestamp.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

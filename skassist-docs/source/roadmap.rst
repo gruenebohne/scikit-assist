@@ -4,7 +4,7 @@
 Roadmap
 =======
 
-.. todo::
+.. todo:: 
 	* automatic reload on file change
 	* automatic result_computation on prediction change
 	* transparent file compression

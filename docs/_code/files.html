@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>LocalFiles &#8212; scikit-assist 0.1 documentation</title>
+    <title>LocalFiles &#8212; scikit-assist 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1',
+        VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -62,19 +62,7 @@
 
 
 
-
-
-    
-
-<p>
-<a href="https://codecov.io/github/gruenebohne/scikit-assist">
-    <img
-    alt="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    src="https://codecov.io/github/gruenebohne/scikit-assist/coverage.svg?branch=master"
-    />
-</a>
-</p>
-<h3>Navigation</h3>
+<!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="library.html">Library</a></li>
@@ -87,22 +75,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="../api.html">API</a><ul>
-      <li>Previous: <a href="model.html" title="previous chapter">Model</a></li>
-      <li>Next: <a href="../changelog.html" title="next chapter">Release History</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <!--<h3>Search</h3>-->
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" placeholder="Quick Search"/>
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -119,7 +97,27 @@
 <dl class="class">
 <dt id="skassist.LocalFiles">
 <em class="property">class </em><code class="descclassname">skassist.</code><code class="descname">LocalFiles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.LocalFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Base class for managing files in <cite>path</cite>.</p>
+<p>No files are loaded by default. Files must be loaded through the <cite>load()</cite> 
+function, after which they are availible through <cite>self.local[filename]</cite>. The
+functions <cite>drop()</cite>, <cite>save()</cite> and <cite>done()</cite> are used to drop a file or save it
+to disk, or both.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">path (:obj:str): Path to the managed folder.</p>
+<p class="last">local (:obj:dict): Dictionary holding the loaded files with key: <cite>filename</cite>.</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>exception handling and throwing</li>
+<li>implement <cite>list_files()</cite></li>
+<li>implement <cite>with LocalFile.load(filename):</cite></li>
+<li>implement <cite>with LocalFile.load([filenames])</cite></li>
+</ul>
+</div>
+</dd></dl>
 
 </div>
 

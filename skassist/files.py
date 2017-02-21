@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from .helpers import saveToFile, loadFromFile
 
 from shutil import rmtree
@@ -5,6 +7,25 @@ from os.path import join, exists
 
 # ____________________________________________________________________LocalFiles
 class LocalFiles(object):
+    """Base class for managing files in `path`.
+
+    No files are loaded by default. Files must be loaded through the `load()` 
+    function, after which they are availible through `self.local[filename]`. The
+    functions `drop()`, `save()` and `done()` are used to drop a file or save it
+    to disk, or both.
+
+    Attributes:
+        path (:obj:str): Path to the managed folder.
+
+        local (:obj:dict): Dictionary holding the loaded files with key: `filename`.
+
+    .. todo::
+        * exception handling and throwing
+        * implement `list_files()`
+        * implement `with LocalFile.load(filename):`
+        * implement `with LocalFile.load([filenames])`
+
+    """
 
     def __init__(self, path):
         self.path = path
