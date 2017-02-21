@@ -28,9 +28,6 @@ Example:
 
 		lib.exp[0].add()
 
-Section breaks are created by resuming unindented text. Section breaks
-are also implicitly created anytime a new section starts.
-
 .. moduleauthor:: Tillmann Radmer <tillmann.radmer@gmail.com>
 """
 

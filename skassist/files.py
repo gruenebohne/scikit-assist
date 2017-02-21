@@ -22,7 +22,7 @@ class LocalFiles(object):
     .. todo::
         * exception handling and throwing
         * implement `list_files()`
-        * implement `with LocalFile.load(filename):`
+        * implement `with LocalFile.load(filename)`
         * implement `with LocalFile.load([filenames])`
 
     """
