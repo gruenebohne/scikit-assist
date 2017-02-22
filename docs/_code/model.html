@@ -140,6 +140,138 @@ training.</dd>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="skassist.Model.calc_results">
+<code class="descname">calc_results</code><span class="sig-paren">(</span><em>scoring_function</em>, <em>name</em>, <em>df</em>, <em>skf</em>, <em>verbose=1</em>, <em>te_split_idx=1</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.calc_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update or create the results series <cite>name</cite> using the provided 
+<a class="reference internal" href="#skassist.Model.scoring_function" title="skassist.Model.scoring_function"><code class="xref py py-func docutils literal"><span class="pre">scoring_function()</span></code></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The cross-validation indices in <cite>skf</cite> must index into the DataFrame <cite>df</cite>.</p>
+</div>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first docutils">
+<dt>scoring_function (<code class="xref py py-func docutils literal"><span class="pre">function()</span></code>): </dt>
+<dd>A python function that calculates results given a model, its
+predictions and the true labels. See <a class="reference internal" href="#skassist.Model.scoring_function" title="skassist.Model.scoring_function"><code class="xref py py-func docutils literal"><span class="pre">scoring_function()</span></code></a>.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array containing arrays of splits. E.g. an array with 10 arrays,
+each containing 3 splits for a 10-fold cross-validation with
+training, test and validation set.</dd>
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The DataFrame on which to evaluate the model. Must contain all
+feature, &#8220;extra&#8221; feature and target columns that the model
+requires.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array containing arrays of splits. E.g. an array with 10 arrays,
+each containing 3 splits for a 10-fold cross-validation with
+training, test and validation set.</dd>
+</dl>
+<p>verbose (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): Level of print output. 0 is no output.</p>
+<p class="last">te_split_idx (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): Index of split that the model is evaluated on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Model.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>df</em>, <em>skf</em>, <em>split_list=None</em>, <em>verbose=1</em>, <em>te_split_idx=1</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross-evaluates the model on the test datasets given by <cite>te_split_idx</cite>.
+<cite>te_split_idx</cite> indexes the split number to use for testing. All splits
+<em>bellow</em> the test index are used for training.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The cross-validation indices in <cite>skf</cite> must index into the DataFrame <cite>df</cite>.</p>
+</div>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first docutils">
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The DataFrame on which to evaluate the model. Must contain all
+feature, &#8220;extra&#8221; feature and target columns that the model
+requires.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array containing arrays of splits. E.g. an array with 10 arrays,
+each containing 3 splits for a 10-fold cross-validation with
+training, test and validation set.</dd>
+<dt>split_list (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): </dt>
+<dd>A list of split indices to use for evaluation. This is usefull
+when computation time is a limiting factor and a reduced 
+evaluation for model selection is sufficient.</dd>
+</dl>
+<p>verbose (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): Level of print output. 0 is no output.</p>
+<dl class="last docutils">
+<dt>te_split_idx (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): </dt>
+<dd>Index of split that the model is evaluated on.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Model.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the model on the whole dataset and save it.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The DataFrame on which to train the model. Must contain all
+feature, &#8220;extra&#8221; feature and target columns that the model
+requires.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Model.reset_predictions">
+<code class="descname">reset_predictions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.reset_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets all predictions for all test/validation splits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Model.reset_results">
+<code class="descname">reset_results</code><span class="sig-paren">(</span><em>name</em>, <em>verbose=1</em>, <em>te_split_idx=1</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.reset_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset results with given name.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): Name of the result that should be deleted.</p>
+<p>verbose (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>, optional): Level of output. 0 is no output.</p>
+<dl class="last docutils">
+<dt>te_split_idx (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>, optional): </dt>
+<dd>Index of evaluation split that should be resetted.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.Model.scoring_function">
+<code class="descname">scoring_function</code><span class="sig-paren">(</span><em>model</em>, <em>y_true</em>, <em>y_predicted_probability</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Model.scoring_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>The scoring function takes a model, the true labels and the prediction
+and calculates one or more scores. These are returned in a dictionary which
+<a class="reference internal" href="#skassist.Model.calc_results" title="skassist.Model.calc_results"><code class="xref py py-func docutils literal"><span class="pre">calc_results()</span></code></a> uses to commit them to permanent storage.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>scoring_function (<code class="xref py py-func docutils literal"><span class="pre">function()</span></code>): </dt>
+<dd>A python function for calculating the results given the true labels
+and the predictions. See <a class="reference internal" href="#skassist.Model.scoring_function" title="skassist.Model.scoring_function"><code class="xref py py-func docutils literal"><span class="pre">scoring_function()</span></code></a>.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array containing arrays of splits. E.g. an array with 10 arrays,
+each containing 3 splits for a 10-fold cross-validation with
+training, test and validation set.</dd>
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The DataFrame on which to evaluate the model. Must contain all
+feature, &#8220;extra&#8221; feature and target columns that the model
+requires.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

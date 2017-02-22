@@ -72,7 +72,6 @@ class Model(LocalFiles):
                 A dictionary with tunable model parameters.
 
         """
-
         # create the meta information
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
 
@@ -109,8 +108,19 @@ class Model(LocalFiles):
 
 
     # __________________________________________________________________________
-    # Reset results with given name
+    # 
     def reset_results(self, name, verbose=1, te_split_idx=1):
+        """Reset results with given name.
+        
+        Args:
+            name (:obj:`str`): Name of the result that should be deleted.
+
+            verbose (:obj:`int`, optional): Level of output. 0 is no output.
+
+            te_split_idx (:obj:`int`, optional): 
+                Index of evaluation split that should be resetted.
+
+        """
         name = name+'_{0}'.format(te_split_idx)
         ready_dict_name = 'ready_mask_{0}'.format(te_split_idx)
         if verbose > 0: 
@@ -130,9 +140,10 @@ class Model(LocalFiles):
         self.done('results')
 
     # __________________________________________________________________________
-    # Reset predictions
-    # TODO: add tr/te/va set (e.g. te_split_idx)
     def reset_predictions(self):
+        """Resets all predictions for all test/validation splits.
+
+        """
         predictions = self.load('predictions')
         if predictions is not None:
             for i in range(len(predictions['ready_mask'])):
@@ -147,8 +158,16 @@ class Model(LocalFiles):
 
 
     # __________________________________________________________________________
-    # Fits the model on the whole dataset and save it.
     def fit(self, df):
+        """Fits the model on the whole dataset and save it.
+
+        Args:
+            df (:obj:`pandas.DataFrame`): 
+                The DataFrame on which to train the model. Must contain all
+                feature, "extra" feature and target columns that the model
+                requires.
+
+        """
         # load the estimator from disk
         estimator = self.load('estimator')
 
@@ -163,10 +182,36 @@ class Model(LocalFiles):
 
 
     # __________________________________________________________________________
-    # Cross-validate the model.
-    # TODO: [CODE] Rewrite
     def evaluate(self, df, skf, split_list=None, verbose=1, te_split_idx=1):
+        """Cross-evaluates the model on the test datasets given by `te_split_idx`.
+        `te_split_idx` indexes the split number to use for testing. All splits
+        *bellow* the test index are used for training.
         
+        .. note::
+            The cross-validation indices in `skf` must index into the DataFrame `df`.
+
+        Args:
+            df (:obj:`pandas.DataFrame`): 
+                The DataFrame on which to evaluate the model. Must contain all
+                feature, "extra" feature and target columns that the model
+                requires.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array containing arrays of splits. E.g. an array with 10 arrays,
+                each containing 3 splits for a 10-fold cross-validation with
+                training, test and validation set.
+
+            split_list (:obj:`list`): 
+                A list of split indices to use for evaluation. This is usefull
+                when computation time is a limiting factor and a reduced 
+                evaluation for model selection is sufficient.
+
+            verbose (:obj:`int`): Level of print output. 0 is no output.
+
+            te_split_idx (:obj:`int`): 
+                Index of split that the model is evaluated on.
+
+        """
         print_ending = ''
 
         p_dict_name = 'probabilities_{0}'.format(te_split_idx)
@@ -295,11 +340,63 @@ class Model(LocalFiles):
 
         return self
 
+    def scoring_function(self, model, y_true, y_predicted_probability):
+        """The scoring function takes a model, the true labels and the prediction
+        and calculates one or more scores. These are returned in a dictionary which
+        :func:`~skassist.Model.calc_results` uses to commit them to permanent storage.
+
+        Args:
+            scoring_function (:func:`function`): 
+                A python function for calculating the results given the true labels
+                and the predictions. See :func:`~skassist.Model.scoring_function`.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array containing arrays of splits. E.g. an array with 10 arrays,
+                each containing 3 splits for a 10-fold cross-validation with
+                training, test and validation set.
+
+            df (:obj:`pandas.DataFrame`): 
+                The DataFrame on which to evaluate the model. Must contain all
+                feature, "extra" feature and target columns that the model
+                requires.
+
+        """
+        raise NotImplemented('This function is only for documentation. DO NOT CALL!')
+        return None
 
     # __________________________________________________________________________
-    # update this model's results
-    # TODO: [CODE] Rewrite
     def calc_results(self, scoring_function, name, df, skf, verbose = 1, te_split_idx=1):
+        """Update or create the results series `name` using the provided 
+        :func:`~skassist.Model.scoring_function`. 
+
+        .. note::
+            The cross-validation indices in `skf` must index into the DataFrame `df`.
+        
+        Args:
+            scoring_function (:func:`function`): 
+                A python function that calculates results given a model, its
+                predictions and the true labels. See :func:`~skassist.Model.scoring_function`.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array containing arrays of splits. E.g. an array with 10 arrays,
+                each containing 3 splits for a 10-fold cross-validation with
+                training, test and validation set.
+
+            df (:obj:`pandas.DataFrame`): 
+                The DataFrame on which to evaluate the model. Must contain all
+                feature, "extra" feature and target columns that the model
+                requires.
+
+            skf (:obj:`numpy.ndarray`): 
+                An array containing arrays of splits. E.g. an array with 10 arrays,
+                each containing 3 splits for a 10-fold cross-validation with
+                training, test and validation set.
+
+            verbose (:obj:`int`): Level of print output. 0 is no output.
+
+            te_split_idx (:obj:`int`): Index of split that the model is evaluated on.
+
+        """
         # Load the predictions and results file
         results = self.load('results')
         predictions = self.load('predictions')

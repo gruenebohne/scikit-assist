@@ -20,7 +20,11 @@ div.sphinxsidebar ul {
 }
 
 dl.method, dl.classmethod {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+}
+
+dt:target, .highlight {
+    background: #ffeddc;
 }
 
 @media screen and (max-width: 875px) {
