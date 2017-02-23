@@ -36,3 +36,4 @@ from .library import Library
 from .experiment import Experiment
 from .model import Model
 from .files import LocalFiles
+from .basemodel import BaseModel

@@ -113,18 +113,6 @@ class Experiment(LocalFiles):
     # __________________________________________________________________________
     def add(self, estimator):
         """Adds a model to the experiment. 
-
-        The model instance needs four special attributes:
-            #. estimator.name (:obj:`str`): A name for the model.  
-
-            #. estimator.extra_features (:obj:`list`): 
-                A list of additional features that are needed by the model and 
-                are not in the :obj:`Experiment.features` property of the 
-                experiment. The extra features must be columns in the dataset.
-
-            #. estimator.target (:obj:`str`): Name of the target variable.
-
-            #. estimator.params (:obj:`list`): List of tunable parameters of the model.
         
         Args:
             estimator (:obj:`AssistEstimator`): 

@@ -69,6 +69,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Experiment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="model.html">Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">LocalFiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basemodel.html">BaseModel</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release History</a></li>
@@ -148,20 +149,6 @@ make finding stuff later easier.</dd>
 <code class="descname">add</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Experiment.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a model to the experiment.</p>
 <dl class="docutils">
-<dt>The model instance needs four special attributes:</dt>
-<dd><ol class="first last arabic simple">
-<li>estimator.name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): A name for the model.</li>
-<li><dl class="first docutils">
-<dt>estimator.extra_features (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): </dt>
-<dd>A list of additional features that are needed by the model and 
-are not in the <code class="xref py py-obj docutils literal"><span class="pre">Experiment.features</span></code> property of the 
-experiment. The extra features must be columns in the dataset.</dd>
-</dl>
-</li>
-<li>estimator.target (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): Name of the target variable.</li>
-<li>estimator.params (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): List of tunable parameters of the model.</li>
-</ol>
-</dd>
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
 <dt>estimator (<code class="xref py py-obj docutils literal"><span class="pre">AssistEstimator</span></code>): </dt>

@@ -29,6 +29,14 @@ dt:target, .highlight {
 
 @media screen and (max-width: 875px) {
 
+	div.sphinxsidebar img.logo {
+		max-width: 110px;
+	}
+
+	div.sphinxsidebar p.logo {
+		display: inline;
+	}
+
 	dl dd {
 		margin-left: 0px;
 		border-left: 1px dotted #EEE;

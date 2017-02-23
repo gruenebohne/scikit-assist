@@ -12,6 +12,7 @@ API
    _code/experiment
    _code/model
    _code/files
+   _code/basemodel
 
 Introduction
 ============
