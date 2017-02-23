@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from .files import LocalFiles
-from .helpers import saveToFile
+from ..local_store import LocalFiles
+# from .helpers import saveToFile
 
 from datetime import datetime, timedelta
-from os import makedirs
+# from os import makedirs
 from os.path import join, exists
 from time import clock
 import numpy as np
@@ -85,9 +85,13 @@ class Model(LocalFiles):
                       + timedelta(seconds=1)).strftime('%Y%m%d%H%M%S')
             path = join(experiment_path, 'model_{0}'.format(timestamp))
 
+        # TODO: [REM] Not needed anymore as the functionality is now in LocalFiles.
         # Now, create the directory. It shouldn't exist.
-        if not exists(path):
-            makedirs(path)
+        # if not exists(path):
+        #     makedirs(path)
+
+        model_class = cls(path)
+        model_class.save_new(estimator, 'estimator')
 
         meta = {
             'ID': timestamp,
@@ -99,12 +103,14 @@ class Model(LocalFiles):
             'features': features,
             'mParams': modelParams
         }
+        model_class.save_new(meta, 'meta')
 
+        # TODO: [REM] Not needed anymore as LocalFile.save_new is used instead now.
         # save to three different files for leaner updates
-        saveToFile(estimator, join(path, 'estimator'))
-        saveToFile(meta, join(path, 'meta'))
+        # saveToFile(estimator, join(path, 'estimator'))
+        # saveToFile(meta, join(path, 'meta'))
 
-        return cls(path)
+        return model_class
 
 
     # __________________________________________________________________________

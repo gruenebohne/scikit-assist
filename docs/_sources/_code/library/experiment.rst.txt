@@ -4,5 +4,5 @@
 Experiment
 ==========
 
-.. autoclass:: skassist.Experiment
+.. autoclass:: skassist.library.Experiment
    :members:

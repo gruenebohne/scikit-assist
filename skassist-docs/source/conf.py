@@ -24,7 +24,9 @@
 import os
 import sys
 import alabaster
+# print()
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'python')))
 
 
 # -- General configuration ------------------------------------------------

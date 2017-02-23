@@ -1,8 +1,8 @@
 .. Model class documentation file, created by Tillmann Radmer
 
-==========
-LocalFiles
-==========
+=====
+Model
+=====
 
-.. autoclass:: skassist.LocalFiles
+.. autoclass:: skassist.library.Model
    :members:

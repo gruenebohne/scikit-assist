@@ -8,12 +8,12 @@
     
     <title>LocalFiles &#8212; scikit-assist 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -21,16 +21,16 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="BaseModel" href="basemodel.html" />
-    <link rel="prev" title="Model" href="model.html" />
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="helpers" href="helpers.html" />
+    <link rel="prev" title="local_store" href="../local_store.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -41,10 +41,10 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/scikit-assist-logo.png" alt="Logo"/>
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/scikit-assist-logo.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="../index.html">scikit-assist</a></h1>
+<h1 class="logo"><a href="../../index.html">scikit-assist</a></h1>
 
 
 
@@ -64,22 +64,24 @@
 
 <!--<h3>Navigation</h3>-->
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="library.html">Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html">Model</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">LocalFiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basemodel.html">BaseModel</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../library.html">library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../local_store.html">local_store</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">LocalFiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="helpers.html">helpers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models.html">models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
 </ul>
 
 
 <div id="searchbox" style="display: none" role="search">
   <!--<h3>Search</h3>-->
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Quick Search"/>
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -96,8 +98,8 @@
   <div class="section" id="localfiles">
 <h1>LocalFiles<a class="headerlink" href="#localfiles" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="skassist.LocalFiles">
-<em class="property">class </em><code class="descclassname">skassist.</code><code class="descname">LocalFiles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.LocalFiles" title="Permalink to this definition">¶</a></dt>
+<dt id="skassist.local_store.LocalFiles">
+<em class="property">class </em><code class="descclassname">skassist.local_store.</code><code class="descname">LocalFiles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.local_store.LocalFiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for managing files in <cite>path</cite>.</p>
 <p>No files are loaded by default. Files must be loaded through the <cite>load()</cite> 
 function, after which they are availible through <cite>self.local[filename]</cite>. The
@@ -132,7 +134,7 @@ to disk, or both.</p>
       &copy;2016, Tillmann Radmer.
       
       |
-      <a href="../_sources/_code/files.rst.txt"
+      <a href="../../_sources/_code/local_store/files.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

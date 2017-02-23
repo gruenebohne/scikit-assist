@@ -6,14 +6,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Release History &#8212; scikit-assist 0.0.1 documentation</title>
+    <title>local_store &#8212; scikit-assist 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -21,16 +21,16 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Roadmap" href="roadmap.html" />
-    <link rel="prev" title="BaseEstimator" href="_code/models/base.html" />
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LocalFiles" href="local_store/files.html" />
+    <link rel="prev" title="Model" href="library/model.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -41,10 +41,10 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/scikit-assist-logo.png" alt="Logo"/>
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/scikit-assist-logo.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="index.html">scikit-assist</a></h1>
+<h1 class="logo"><a href="../index.html">scikit-assist</a></h1>
 
 
 
@@ -64,17 +64,24 @@
 
 <!--<h3>Navigation</h3>-->
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Release History</a><ul class="simple">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library.html">library</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">local_store</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="local_store/files.html">LocalFiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="local_store/helpers.html">helpers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 </ul>
 
 
 <div id="searchbox" style="display: none" role="search">
   <!--<h3>Search</h3>-->
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Quick Search"/>
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -88,17 +95,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="release-history">
-<h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="0.0.1">
-<h2 style="margin-bottom: 0.3em;"><a class="reference external" href="https://github.com/gruenebohne/scikit-assist/tree/0.0.1">0.0.1</a> <span style="font-size: 75%;">2017-02-20</span></h2><ul class="simple">
-<li>transparent file compression</li>
-<li>First code documentation.</li>
-<li>First Python module release.</li>
-</ul>
-</div>
+  <div class="section" id="local-store">
+<h1>local_store<a class="headerlink" href="#local-store" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-skassist.local_store"></span><p>The local store implements a folder structure that mirrors the structure
+of <a class="reference internal" href="library.html#module-skassist.library" title="skassist.library"><code class="xref py py-mod docutils literal"><span class="pre">library</span></code></a>. This way it is easy to manually modify the
+library, back it up and restore parts of it.</p>
 </div>
 
 
@@ -111,7 +114,7 @@
       &copy;2016, Tillmann Radmer.
       
       |
-      <a href="_sources/changelog.rst.txt"
+      <a href="../_sources/_code/local_store.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

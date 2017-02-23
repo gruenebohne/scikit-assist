@@ -1,8 +1,15 @@
-.. Library class documentation file, created by Tillmann Radmer
+.. library module documentation file, created by Tillmann Radmer
 
 =======
-Library
+library
 =======
 
-.. autoclass:: skassist.Library
+.. toctree::
+   :hidden:
+   :titlesonly:
+   :glob:
+   
+   library/*
+
+.. automodule:: skassist.library
    :members:

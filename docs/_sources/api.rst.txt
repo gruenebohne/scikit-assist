@@ -7,12 +7,9 @@ API
 .. toctree::
    :hidden:
    :titlesonly:
-
-   _code/library
-   _code/experiment
-   _code/model
-   _code/files
-   _code/basemodel
+   :glob:
+   
+   _code/*
 
 Introduction
 ============

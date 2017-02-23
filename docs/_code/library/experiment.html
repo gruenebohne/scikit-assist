@@ -8,12 +8,12 @@
     
     <title>Experiment &#8212; scikit-assist 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -21,16 +21,16 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Model" href="model.html" />
-    <link rel="prev" title="Library" href="library.html" />
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Library" href="lib.html" />
+    <link rel="prev" title="library" href="../library.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -41,10 +41,10 @@
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/scikit-assist-logo.png" alt="Logo"/>
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/scikit-assist-logo.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="../index.html">scikit-assist</a></h1>
+<h1 class="logo"><a href="../../index.html">scikit-assist</a></h1>
 
 
 
@@ -64,22 +64,25 @@
 
 <!--<h3>Navigation</h3>-->
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="library.html">Library</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Experiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html">Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">LocalFiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basemodel.html">BaseModel</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../library.html">library</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html">Model</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../local_store.html">local_store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models.html">models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
 </ul>
 
 
 <div id="searchbox" style="display: none" role="search">
   <!--<h3>Search</h3>-->
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" placeholder="Quick Search"/>
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -96,8 +99,8 @@
   <div class="section" id="experiment">
 <h1>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="skassist.Experiment">
-<em class="property">class </em><code class="descclassname">skassist.</code><code class="descname">Experiment</code><span class="sig-paren">(</span><em>experiment_folder</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Experiment" title="Permalink to this definition">¶</a></dt>
+<dt id="skassist.library.Experiment">
+<em class="property">class </em><code class="descclassname">skassist.library.</code><code class="descname">Experiment</code><span class="sig-paren">(</span><em>experiment_folder</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manages the root folder of an experiment.</p>
 <p>An experiments folder manages the dataset and cross-validation splits
 associated with it. Evaluation and result calcualtion can be initiated
@@ -116,8 +119,8 @@ for all models with the evaluate()</p>
 </ul>
 </div>
 <dl class="classmethod">
-<dt id="skassist.Experiment.New">
-<em class="property">classmethod </em><code class="descname">New</code><span class="sig-paren">(</span><em>name</em>, <em>df</em>, <em>skf</em>, <em>features</em>, <em>lib_path</em>, <em>description=''</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Experiment.New" title="Permalink to this definition">¶</a></dt>
+<dt id="skassist.library.Experiment.New">
+<em class="property">classmethod </em><code class="descname">New</code><span class="sig-paren">(</span><em>name</em>, <em>df</em>, <em>skf</em>, <em>features</em>, <em>lib_path</em>, <em>description=''</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.New" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factory method for creating a new Experiment instance given a name,
 dataset, cross-validation mask and a list of features. The path to the
 library in which the experiment is created must be given.</p>
@@ -145,15 +148,45 @@ make finding stuff later easier.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="skassist.Experiment.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.Experiment.add" title="Permalink to this definition">¶</a></dt>
+<dt id="skassist.library.Experiment.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a model to the experiment.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt>estimator (<code class="xref py py-obj docutils literal"><span class="pre">AssistEstimator</span></code>): </dt>
+<dt>estimator (<code class="xref py py-class docutils literal"><span class="pre">BaseEstimator</span></code>): </dt>
 <dd>A name for the experiment. Will be used together with the 
 timestamp for storing the experiment.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.library.Experiment.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>boolean_func</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator function, yielding all models matching <code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>boolean_func (<code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code>):</dt>
+<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code> and 
+returns a boolean indicating a match.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.library.Experiment.findone">
+<code class="descname">findone</code><span class="sig-paren">(</span><em>boolean_func</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.findone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first model matching <a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>boolean_func (<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>):</dt>
+<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Model</span></code> and 
+returns a boolean indicating a match.</dd>
 </dl>
 </dd>
 </dl>
@@ -173,7 +206,7 @@ timestamp for storing the experiment.</dd>
       &copy;2016, Tillmann Radmer.
       
       |
-      <a href="../_sources/_code/experiment.rst.txt"
+      <a href="../../_sources/_code/library/experiment.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

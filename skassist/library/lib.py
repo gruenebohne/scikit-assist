@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from .files import LocalFiles
+from ..local_store import LocalFiles
 from .experiment import Experiment
 
-# from concurrent.futures  ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-from os import makedirs, listdir # remove, rmdir,
-from os.path import join, isdir, exists, expanduser # isfile
-
-# import matplotlib.pyplot as plt
-# import numpy as np
-# import pandas as pd
-
-# data preparation
-# from sklearn.cross_validation import StratifiedKFold
+# from os import makedirs, listdir, remove, rmdir,
+from os.path import join # isfile, isdir, exists, expanduser
 
 
 # _______________________________________________________________________Library
@@ -33,23 +25,22 @@ class Library(LocalFiles):
 
         path (:obj:`str`): Path to the root directory.
 
-    .. todo::
-        * Implement a :obj:`search` function for finding experiments (by name, date, dataset size, etc.)
-
     """
 
     # __________________________________________________________________________
     def __init__(self, lib_folder=join('.','library')):
         LocalFiles.__init__(self, lib_folder)
 
-        if not exists(self.path):
-            makedirs(self.path)
+        # TODO: [REM] Not needed anymore as the functionality is now in LocalFiles.
+        # if not exists(self.path):
+        #     makedirs(self.path)
 
         # load experiments in the library folder
         self.experiments = []
 
         # only consider folders with matching name
-        onlyfolders = [f for f in listdir(self.path) if isdir(join(self.path, f))]
+        # onlyfolders = [f for f in self.listdir() if isdir(join(self.path, f))]
+        onlyfolders = self.list_folders()
         onlyexperiments = sorted([f for f in onlyfolders if 'exp_' in f])
 
         # Append Experiment objects to the list. The Experiment object only
@@ -114,6 +105,33 @@ class Library(LocalFiles):
         # remove the experminet from the maintained list
         del self.experiments[index]
 
+    # __________________________________________________________________________
+    def findone(self, boolean_func):
+        """Return the first experiment matching :func:`~doc_definitions.boolean_func`.
+        
+        Args:
+            boolean_func (:func:`~doc_definitions.boolean_func`):
+                A function that takes an :class:`~skassist.Experiment` and 
+                returns a boolean indicating a match.
+
+        """
+        return next(self.find(boolean_func))
+
+
+    # __________________________________________________________________________
+    def find(self, boolean_func):
+        """Iterator function, yielding all experiments matching 
+        :func:`~doc_definitions.boolean_func`.
+        
+        Args:
+            boolean_func (:func:`~doc_definitions.boolean_func`):
+                A function that takes an :class:`~skassist.Experiment` and 
+                returns a boolean indicating a match.
+        
+        """
+        for exp in self.experiments:
+            if boolean_func(exp):
+                yield exp
 
     # __________________________________________________________________________
     def __repr__(self):

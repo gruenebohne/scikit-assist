@@ -91,10 +91,56 @@
 <h1><a class="reference external" href="https://radmerti.github.io/scikit-assist">scikit-assist: a data science manager</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>scikit-assist is project for assisting data science experiments. It is manly written for scikit-learn, but can be used with other frameworks like TensorFlow. The main module is a library that keeps and manages the storage of all experiments. This way no experiment will ever get lost and is easily accessible through Python.</p>
 <p>The storage is done in files on disk. Ideally, this would be replaced by a storage API that is flexible enough to allow different database targets. The advantage of using disk storage is that while the API is not complete changes to the library, liek copying or deleting files, can be done through the command line or file browser.</p>
-<p>For more information please head over to the project page <a class="reference external" href="https://radmerti.github.io/scikit-assist">scikit-assist</a>.</p>
+<p>For more information, documentation and examples please head over to the  <a class="reference external" href="https://radmerti.github.io/scikit-assist">project page</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The module has no installer and is not PyPI compatible yet. So the easiest way
+to get going is to download or clone this repository and copy the <cite>skassist</cite>
+folder into your project folder.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Creating a new experiment based on the scikit-learn iris dataset, adding several models, evaluating them and calculating results is easy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skassist</span> <span class="k">import</span> <span class="n">Library</span>
+<span class="kn">from</span> <span class="nn">skassist.examples</span> <span class="k">import</span> <span class="n">load_iris_data</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="c1"># Create a new experiment with the iris dataset</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">load_iris_data</span><span class="p">()</span>
+<span class="n">lib</span> <span class="o">=</span> <span class="n">Library</span><span class="p">()</span>
+<span class="n">lib</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;iris_example&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="s1">&#39;Iris data example experiment.&#39;</span><span class="p">)</span>
+
+<span class="c1"># Our model class</span>
+<span class="k">class</span> <span class="nc">SimpleClassificationModel</span><span class="p">():</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span>
+
+                <span class="c1"># set mandatory variables used by SLIB</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;target&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">extra_features</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;classifier_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># We want to know how many trees we need</span>
+<span class="k">for</span> <span class="n">n_trees</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">300</span><span class="p">]:</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_trees</span><span class="p">)</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SimpleClassificationModel</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span>
+
+<span class="c1"># run cross-validation</span>
+<span class="n">lib</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</pre></div>
+</div>
 <p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a>
 <a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a>
 <a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p>
+</div>
 </div>
 
 

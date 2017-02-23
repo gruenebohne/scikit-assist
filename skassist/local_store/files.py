@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from .helpers import saveToFile, loadFromFile
+from .helpers import saveToFile, loadFromFile, makeDirectoryPath
 
 from shutil import rmtree
-from os.path import join, exists
+from os.path import join, exists, isdir
+from os import listdir
 
 # ____________________________________________________________________LocalFiles
 class LocalFiles(object):
@@ -28,6 +29,8 @@ class LocalFiles(object):
     """
 
     def __init__(self, path):
+        # ensure that the directory exists
+        makeDirectoryPath(path)
         self.path = path
         self.local = {}
 
@@ -52,9 +55,19 @@ class LocalFiles(object):
         if filename in self.local:
             saveToFile(self.local[filename], join(self.path, filename))
 
+    def save_new(self, filename, object):
+        self.local[filename] = object
+        saveToFile(self.local[filename], join(self.path, filename))
+
     def done(self, filename):
         self.save(filename)
         self.drop(filename)
 
     def delete(self):
         rmtree(self.path)
+
+    def listdir(self):
+        return listdir(self.path)
+
+    def list_folders(self):
+        return [f for f in self.listdir() if isdir(join(self.path, f))]

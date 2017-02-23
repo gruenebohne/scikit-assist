@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Library &#8212; scikit-assist 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Model" href="model.html" />
+    <link rel="prev" title="Experiment" href="experiment.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/scikit-assist-logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../../index.html">scikit-assist</a></h1>
+
+
+
+<p class="blurb">A flexible library for managing and running data science experiments</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gruenebohne&repo=scikit-assist&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--<h3>Navigation</h3>-->
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../library.html">library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html">Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../local_store.html">local_store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models.html">models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap.html">Roadmap</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <!--<h3>Search</h3>-->
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Quick Search"/>
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="library">
+<h1>Library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="skassist.library.Library">
+<em class="property">class </em><code class="descclassname">skassist.library.</code><code class="descname">Library</code><span class="sig-paren">(</span><em>lib_folder='./library'</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Library" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manages the root folder of the library.</p>
+<p>This class supports the creation and deletion of new experiments</p>
+<p>The constructor method tries to read the content of the library folder. When
+looking for experiments it only considers folder with a name string starting 
+in <cite>exp_</cite>. Everything else is ignored.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lib_folder (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>, optional): Absolute/relative path to the root directory.</dd>
+<dt>Attributes:</dt>
+<dd><p class="first">experiments (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): A list of experiments found in the library folder.</p>
+<p class="last">path (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): Path to the root directory.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="skassist.library.Library.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>df</em>, <em>skf</em>, <em>features</em>, <em>description=''</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Library.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an experiment based on the dataset <cite>df</cite> to the library. A folder
+<cite>&#8216;exp_&#8217;+name+timestamp</cite> is created for the experiment in the library
+folder. It will hold the dataset and cross-validation masks, as well as
+sub-folders for each model.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A name for the experiment. Will be used together with the 
+timestamp for storing the experiment.</dd>
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The dataset as a Pandas DataFrame.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array of indices, each being one cross-validation split.</dd>
+<dt>features (<code class="xref py py-obj docutils literal"><span class="pre">list</span></code>): </dt>
+<dd>A list of column names that are to be used as features during 
+training.</dd>
+<dt>description (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>): </dt>
+<dd>A descriptive string of the dataset, experiment or changes to 
+make finding stuff later easier.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.library.Library.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Library.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the experiment at the given index from memory and permanent 
+storage.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>index (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): </dt>
+<dd>Index of the experiment to delete. The index is sorted by name
+and timestamp.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.library.Library.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>boolean_func</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Library.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator function, yielding all experiments matching 
+<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>boolean_func (<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>):</dt>
+<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code> and 
+returns a boolean indicating a match.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skassist.library.Library.findone">
+<code class="descname">findone</code><span class="sig-paren">(</span><em>boolean_func</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Library.findone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first experiment matching <a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>boolean_func (<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>):</dt>
+<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code> and 
+returns a boolean indicating a match.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2016, Tillmann Radmer.
+      
+      |
+      <a href="../../_sources/_code/library/lib.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-92281124-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

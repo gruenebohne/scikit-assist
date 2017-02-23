@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Library" href="_code/library.html" />
+    <link rel="next" title="library" href="_code/library.html" />
     <link rel="prev" title="scikit-assist: a data science manager" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -65,11 +65,9 @@
 <!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_code/library.html">Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_code/experiment.html">Experiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_code/model.html">Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_code/files.html">LocalFiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_code/basemodel.html">BaseModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_code/library.html">library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_code/local_store.html">local_store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_code/models.html">models</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Release History</a></li>
@@ -99,36 +97,6 @@
 </div>
 <div class="section" id="module-skassist">
 <span id="introduction"></span><h2>Introduction<a class="headerlink" href="#module-skassist" title="Permalink to this headline">¶</a></h2>
-<p>In scikit-assist an experiment is defined by a dataset and a validation 
-strategy. A dataset must be provided by a pandas DataFrame. The validation strategy 
-is specified by a list of lists, each containing up to three indices into the 
-dataset (training, testing and validation set).</p>
-<p>Optionally, a list of columns that are to be used as features during model 
-training can be provided. If not provided, all columns but the target will be
-used as features.</p>
-<dl class="docutils">
-<dt>Example:</dt>
-<dd><p class="first">A new experiment with a DataFrame <code class="docutils literal"><span class="pre">data</span></code> can be specified as follows:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skassist</span> <span class="k">import</span> <span class="n">Library</span>
-
-<span class="n">cross_val</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="n">tr1</span><span class="p">,</span><span class="n">te1</span><span class="p">,</span><span class="n">va1</span><span class="p">],</span>  <span class="c1"># 1. validation split</span>
-        <span class="p">[</span><span class="n">tr2</span><span class="p">,</span><span class="n">te2</span><span class="p">,</span><span class="n">va2</span><span class="p">],</span>  <span class="c1"># 2. validation split</span>
-        <span class="p">[</span><span class="n">tr3</span><span class="p">,</span><span class="n">te3</span><span class="p">,</span><span class="n">va3</span><span class="p">]</span>   <span class="c1"># 3. validation split</span>
-<span class="p">]</span>
-
-<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2&#39;</span><span class="p">,</span> <span class="s1">&#39;col3&#39;</span><span class="p">]</span>
-
-<span class="n">lib</span> <span class="o">=</span> <span class="n">Library</span><span class="p">()</span>
-
-<span class="n">lib</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;name_of_experiment&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cross_val</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> 
-        <span class="s1">&#39;Some meaningful desription.&#39;</span><span class="p">)</span>
-
-<span class="n">lib</span><span class="o">.</span><span class="n">exp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 </div>
 </div>
 

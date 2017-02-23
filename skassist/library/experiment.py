@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from .files import LocalFiles
+from ..local_store import LocalFiles
 from .model import Model
-from .helpers import saveToFile
+# from .helpers import saveToFile
 
 from os import listdir, makedirs
 from os.path import join, isdir
@@ -42,7 +42,7 @@ class Experiment(LocalFiles):
         self.meta = self.load('meta')
 
         # get only folders that contain 'model_'
-        onlyfolders = [f for f in listdir(self.path) if isdir(join(self.path, f))]
+        onlyfolders = self.list_folders()
         modelfolders = sorted([f for f in onlyfolders if 'model_' in f])
 
         # load the model dictionaries into an array
@@ -88,13 +88,19 @@ class Experiment(LocalFiles):
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
         path = join(lib_path, 'exp_{0}_{1}'.format(name, timestamp))
 
+        # TODO: [REM] Not needed anymore as the functionality is now in LocalFiles.
         # create the directory if it doesn't exist
-        if not exists(path):
-            makedirs(path)
+        # if not exists(path):
+        #     makedirs(path)
 
+        experiment_class = cls(path)
+        experiment_class.save_new(df, 'data')
+        experiment_class.save_new(skf, 'skf')
+
+        # TODO: [REM] Not needed anymore as LocalFile.save_new is used instead now.
         # write the data and cross-validatioin object to the new directory
-        saveToFile(df, join(path, 'data'))
-        saveToFile(skf, join(path, 'skf'))
+        # saveToFile(df, join(path, 'data'))
+        # saveToFile(skf, join(path, 'skf'))
 
         # write meta information
         meta = {
@@ -104,10 +110,12 @@ class Experiment(LocalFiles):
             'features': features,
             'description': description
         }
-        saveToFile(meta, join(path, 'meta'))
+        experiment_class.save_new(meta, 'meta')
+        # TODO: [REM] Not needed anymore as LocalFile.save_new is used instead now.
+        # saveToFile(meta, join(path, 'meta'))
 
         # return class instance
-        return cls(path)
+        return experiment_class
 
 
     # __________________________________________________________________________
@@ -115,7 +123,7 @@ class Experiment(LocalFiles):
         """Adds a model to the experiment. 
         
         Args:
-            estimator (:obj:`AssistEstimator`): 
+            estimator (:class:`~skassist.base.BaseEstimator`): 
                 A name for the experiment. Will be used together with the 
                 timestamp for storing the experiment.
 
@@ -167,14 +175,28 @@ class Experiment(LocalFiles):
 
 
     # __________________________________________________________________________
-    # return the first item matching boolean_func()
     def findone(self, boolean_func):
+        """Return the first model matching :func:`~doc_definitions.boolean_func`.
+        
+        Args:
+            boolean_func (:func:`~doc_definitions.boolean_func`):
+                A function that takes an :class:`~skassist.Model` and 
+                returns a boolean indicating a match.
+
+        """
         return next(self.find(boolean_func))
 
 
     # __________________________________________________________________________
-    # iterator function, yielding all model objects matching boolean_func()
     def find(self, boolean_func):
+        """Iterator function, yielding all models matching :func:`~definitions.boolean_func`.
+        
+        Args:
+            boolean_func (:func:`~definitions.boolean_func`):
+                A function that takes an :class:`~skassist.Experiment` and 
+                returns a boolean indicating a match.
+        
+        """
         for model in self.models:
             if boolean_func(model):
                 yield model
