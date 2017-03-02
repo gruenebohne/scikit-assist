@@ -180,7 +180,7 @@ class Experiment(LocalFiles):
         
         Args:
             boolean_func (:func:`~doc_definitions.boolean_func`):
-                A function that takes an :class:`~skassist.Model` and 
+                A function that takes a :class:`~skassist.library.Model` and 
                 returns a boolean indicating a match.
 
         """
@@ -189,11 +189,11 @@ class Experiment(LocalFiles):
 
     # __________________________________________________________________________
     def find(self, boolean_func):
-        """Iterator function, yielding all models matching :func:`~definitions.boolean_func`.
+        """Iterator function, yielding all models matching :func:`~doc_definitions.boolean_func`.
         
         Args:
-            boolean_func (:func:`~definitions.boolean_func`):
-                A function that takes an :class:`~skassist.Experiment` and 
+            boolean_func (:func:`~doc_definitions.boolean_func`):
+                A function that takes a :class:`~skassist.library.Model` and 
                 returns a boolean indicating a match.
         
         """
@@ -247,43 +247,69 @@ class Experiment(LocalFiles):
 
 
     # __________________________________________________________________________
-    # calculate result for all models in this experiment
-    def calc_result(self, scoring_function, name, max_workers=1, verbose=1, te_split_idx=1):
+    def calc_results(self, scoring_function, name, max_workers=1, verbose=1, te_split_idx=1):
+        """Calculate result for all models in this experiment. Calls :func:`~skassist.library.Model.calc_result`
+        of each :class:`~skassist.library.Model`.
+        
+        Args:
+            scoring_function (:func:`function`):
+                A python function that calculates results given a model, its
+                predictions and the true labels. See :func:`~skassist.Model.scoring_function`.
+
+            name (:obj:`str`):
+                A name for the result series. If a series with the given names
+                exists, only missing results will be computed. Existing results
+                are not deleted.
+
+            max_workers (:obj:`int`):
+                The number of models for which to concurrently calculate the results.
+                 `max_workers=1` is usually faster as the overhead of the
+                 ProcessPoolExecutor is too large. Could try ThreadPoolExecutor.
+
+            verbose (:obj:`int`): Level of print output. 0 is no output.
+
+            te_split_idx (:obj:`int`): Index of split that the model is evaluated on.
+        """
         # Load the dataset from disk
         data = self.load('data')
         skf = self.load('skf')
 
-
-        with ProcessPoolExecutor(max_workers=max_workers) as executor:
-            future_to_scores = []
-            len_models = len(self.models)
-            for i, model in enumerate(self.models):
-                future_to_scores.append(
-                    executor.submit(
-                        model.calc_results, scoring_function, name, data, skf,
-                        verbose=0, te_split_idx=te_split_idx
+        if max_workers == 1:
+            if verbose > 1:
+                # pass verbosity to the next level
+                pass_verbose = 1
+            else:
+                # only output at this level (if verbose > 0)
+                pass_verbose = 0
+            # Invoke results update for all models
+            for j,model in enumerate(self.models):
+                if verbose > 0:
+                    print('{0:2}/{1:<2} {2}'.format(j+1, len(self.models),
+                        model.meta['name']), end='\n')
+                model.calc_results(scoring_function, name, data, skf, 
+                                   verbose=pass_verbose,
+                                   te_split_idx=te_split_idx)
+        else:
+            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                future_to_scores = []
+                len_models = len(self.models)
+                for i, model in enumerate(self.models):
+                    future_to_scores.append(
+                        executor.submit(
+                            model.calc_results, scoring_function, name, data, skf,
+                            verbose=0, te_split_idx=te_split_idx
+                        )
                     )
-                )
 
-            for j, future in enumerate(as_completed(future_to_scores)):
-                try:
-                    ret_model = future.result()
-                except Exception as exc:
-                    print('ERROR:{0}'.format(exc))
-                else:
-                    if verbose > 0:
-                        print('{0:>3}/{1:<3} {2}'.format(j+1, len_models,
-                              ret_model.meta['name']), end='\n')
-
-
-        # # Invoke results update for all models
-        # for j,model in enumerate(self.models):
-        #     if verbose > 0:
-        #         print('{0:2}/{1:<2} {2}'.format(j+1, len(self.models),
-        #             model.meta['name']), end='\n')
-        #     model.calc_results(scoring_function, name, data, skf, 
-        #                        verbose=verbose,
-        #                        te_split_idx=te_split_idx)
+                for j, future in enumerate(as_completed(future_to_scores)):
+                    try:
+                        ret_model = future.result()
+                    except Exception as exc:
+                        print('ERROR:{0}'.format(exc))
+                    else:
+                        if verbose > 0:
+                            print('{0:>3}/{1:<3} {2}'.format(j+1, len_models,
+                                  ret_model.meta['name']), end='\n')
 
         # drop dataset
         self.drop('data')
