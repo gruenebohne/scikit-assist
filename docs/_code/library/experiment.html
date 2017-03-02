@@ -65,6 +65,7 @@
 <!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../evaluation.html">evaluation</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../library.html">library</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Experiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.html">Library</a></li>
@@ -163,14 +164,43 @@ timestamp for storing the experiment.</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="skassist.library.Experiment.calc_results">
+<code class="descname">calc_results</code><span class="sig-paren">(</span><em>scoring_function</em>, <em>name</em>, <em>max_workers=1</em>, <em>verbose=1</em>, <em>te_split_idx=1</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.calc_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate result for all models in this experiment. Calls <a class="reference internal" href="model.html#skassist.library.Model.calc_result" title="skassist.library.Model.calc_result"><code class="xref py py-func docutils literal"><span class="pre">calc_result()</span></code></a>
+of each <a class="reference internal" href="model.html#skassist.library.Model" title="skassist.library.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first docutils">
+<dt>scoring_function (<code class="xref py py-func docutils literal"><span class="pre">function()</span></code>):</dt>
+<dd>A python function that calculates results given a model, its
+predictions and the true labels. See <code class="xref py py-func docutils literal"><span class="pre">scoring_function()</span></code>.</dd>
+<dt>name (<code class="xref py py-obj docutils literal"><span class="pre">str</span></code>):</dt>
+<dd>A name for the result series. If a series with the given names
+exists, only missing results will be computed. Existing results
+are not deleted.</dd>
+<dt>max_workers (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt>The number of models for which to concurrently calculate the results.</dt>
+<dd><cite>max_workers=1</cite> is usually faster as the overhead of the
+ProcessPoolExecutor is too large. Could try ThreadPoolExecutor.</dd>
+</dl>
+</dd>
+</dl>
+<p>verbose (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): Level of print output. 0 is no output.</p>
+<p class="last">te_split_idx (<code class="xref py py-obj docutils literal"><span class="pre">int</span></code>): Index of split that the model is evaluated on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="skassist.library.Experiment.find">
 <code class="descname">find</code><span class="sig-paren">(</span><em>boolean_func</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.library.Experiment.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterator function, yielding all models matching <code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code>.</p>
+<dd><p>Iterator function, yielding all models matching <a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt>boolean_func (<code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code>):</dt>
-<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code> and 
+<dt>boolean_func (<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>):</dt>
+<dd>A function that takes a <a class="reference internal" href="model.html#skassist.library.Model" title="skassist.library.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a> and 
 returns a boolean indicating a match.</dd>
 </dl>
 </dd>
@@ -185,7 +215,7 @@ returns a boolean indicating a match.</dd>
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
 <dt>boolean_func (<a class="reference internal" href="../../definitions.html#doc_definitions.boolean_func" title="doc_definitions.boolean_func"><code class="xref py py-func docutils literal"><span class="pre">boolean_func()</span></code></a>):</dt>
-<dd>A function that takes an <code class="xref py py-class docutils literal"><span class="pre">Model</span></code> and 
+<dd>A function that takes a <a class="reference internal" href="model.html#skassist.library.Model" title="skassist.library.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a> and 
 returns a boolean indicating a match.</dd>
 </dl>
 </dd>

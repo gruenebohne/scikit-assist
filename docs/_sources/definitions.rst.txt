@@ -4,4 +4,5 @@
 Definitions
 ===========
 
-.. autofunction:: doc_definitions.boolean_func
+.. automodule:: doc_definitions
+   :members:

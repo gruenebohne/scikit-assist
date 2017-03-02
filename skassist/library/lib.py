@@ -111,7 +111,7 @@ class Library(LocalFiles):
         
         Args:
             boolean_func (:func:`~doc_definitions.boolean_func`):
-                A function that takes an :class:`~skassist.Experiment` and 
+                A function that takes an :class:`~skassist.library.Experiment` and 
                 returns a boolean indicating a match.
 
         """
@@ -125,7 +125,7 @@ class Library(LocalFiles):
         
         Args:
             boolean_func (:func:`~doc_definitions.boolean_func`):
-                A function that takes an :class:`~skassist.Experiment` and 
+                A function that takes an :class:`~skassist.library.Experiment` and 
                 returns a boolean indicating a match.
         
         """

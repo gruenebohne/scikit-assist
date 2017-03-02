@@ -84,8 +84,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="definitions">
-<h1>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-doc_definitions">
+<span id="definitions"></span><h1>Definitions<a class="headerlink" href="#module-doc_definitions" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="doc_definitions.boolean_func">
 <code class="descclassname">doc_definitions.</code><code class="descname">boolean_func</code><span class="sig-paren">(</span><em>experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#doc_definitions.boolean_func" title="Permalink to this definition">¶</a></dt>
@@ -93,6 +93,31 @@
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>experiment (<code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code>): Experiment that is to be tested.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="doc_definitions.scoring_function">
+<code class="descclassname">doc_definitions.</code><code class="descname">scoring_function</code><span class="sig-paren">(</span><em>self</em>, <em>model</em>, <em>y_true</em>, <em>y_predicted_probability</em><span class="sig-paren">)</span><a class="headerlink" href="#doc_definitions.scoring_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>The scoring function takes a model, the true labels and the prediction
+and calculates one or more scores. These are returned in a dictionary which
+<code class="xref py py-func docutils literal"><span class="pre">calc_results()</span></code> uses to commit them to permanent storage.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>scoring_function (<code class="xref py py-func docutils literal"><span class="pre">function()</span></code>): </dt>
+<dd>A python function for calculating the results given the true labels
+and the predictions. See <code class="xref py py-func docutils literal"><span class="pre">scoring_function()</span></code>.</dd>
+<dt>skf (<code class="xref py py-obj docutils literal"><span class="pre">numpy.ndarray</span></code>): </dt>
+<dd>An array containing arrays of splits. E.g. an array with 10 arrays,
+each containing 3 splits for a 10-fold cross-validation with
+training, test and validation set.</dd>
+<dt>df (<code class="xref py py-obj docutils literal"><span class="pre">pandas.DataFrame</span></code>): </dt>
+<dd>The DataFrame on which to evaluate the model. Must contain all
+feature, &#8220;extra&#8221; feature and target columns that the model
+requires.</dd>
+</dl>
+</dd>
 </dl>
 </dd></dl>
 

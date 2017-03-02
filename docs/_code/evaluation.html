@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>models &#8212; scikit-assist 0.0.1 documentation</title>
+    <title>evaluation &#8212; scikit-assist 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="BaseEstimator" href="models/base.html" />
-    <link rel="prev" title="helpers" href="local_store/helpers.html" />
+    <link rel="next" title="uplift" href="evaluation/uplift.html" />
+    <link rel="prev" title="API" href="../api.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -65,14 +65,13 @@
 <!--<h3>Navigation</h3>-->
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="evaluation.html">evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="library.html">library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="local_store.html">local_store</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="models/base.html">BaseEstimator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models/uplift.html">uplift</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/uplift.html">uplift</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="library.html">library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_store.html">local_store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release History</a></li>
@@ -96,13 +95,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="models">
-<h1>models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="evaluation">
+<h1>evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-skassist.models"></span><p>This module provides basis classes that can be used to implelement models for
-the <a class="reference internal" href="library.html#module-skassist.library" title="skassist.library"><code class="xref py py-mod docutils literal"><span class="pre">library</span></code></a> module. It also contains models for specific
-usecases that can be used directly in <a class="reference internal" href="library.html#module-skassist.library" title="skassist.library"><code class="xref py py-mod docutils literal"><span class="pre">library</span></code></a>.</p>
+<span class="target" id="module-skassist.evaluation"></span><p>The evaluation module includes scoring functions that can be passed to 
+<a class="reference internal" href="library/experiment.html#skassist.library.Experiment" title="skassist.library.Experiment"><code class="xref py py-class docutils literal"><span class="pre">Experiment</span></code></a> and <a class="reference internal" href="library/model.html#skassist.library.Model.calc_result" title="skassist.library.Model.calc_result"><code class="xref py py-meth docutils literal"><span class="pre">calc_result()</span></code></a>.</p>
 </div>
 
 
@@ -115,7 +113,7 @@ usecases that can be used directly in <a class="reference internal" href="librar
       &copy;2016, Tillmann Radmer.
       
       |
-      <a href="../_sources/_code/models.rst.txt"
+      <a href="../_sources/_code/evaluation.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
