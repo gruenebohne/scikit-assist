@@ -218,26 +218,34 @@ class Experiment(LocalFiles):
 
         len_models = len(self.models)
 
-        with ProcessPoolExecutor(max_workers=max_workers) as executor:
-            future_to_scores = []
-            len_models = len(self.models)
+        if max_workers == 1:
             for i, model in enumerate(self.models):
-                future_to_scores.append(
-                    executor.submit(
-                        model.evaluate, data, skf,
-                        split_list=None, verbose=0, te_split_idx=te_split_idx
+                model.evaluate(data, skf, split_list=None, verbose=0, 
+                               te_split_idx=te_split_idx)
+                if verbose > 0:
+                    print('{0:2}/{1:<2} {2}'.format(i+1, len_models,
+                          model.meta['name']), end='\n')
+        else:
+            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                future_to_scores = []
+                len_models = len(self.models)
+                for i, model in enumerate(self.models):
+                    future_to_scores.append(
+                        executor.submit(
+                            model.evaluate, data, skf,
+                            split_list=None, verbose=0, te_split_idx=te_split_idx
+                        )
                     )
-                )
-            
-            for k, future in enumerate(as_completed(future_to_scores)):
-                try:
-                    ret_model = future.result()
-                except Exception as exc:
-                    print('ERROR:{0}'.format(exc))
-                else:
-                    if verbose > 0:
-                        print('{0:2}/{1:<2} {2}'.format(k+1, len_models,
-                              ret_model.meta['name']), end='\n')
+                
+                for k, future in enumerate(as_completed(future_to_scores)):
+                    try:
+                        ret_model = future.result()
+                    except Exception as exc:
+                        print('ERROR:{0}'.format(exc))
+                    else:
+                        if verbose > 0:
+                            print('{0:2}/{1:<2} {2}'.format(k+1, len_models,
+                                  ret_model.meta['name']), end='\n')
 
         # free RAM by dropping the dataset
         data = None
