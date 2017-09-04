@@ -21,17 +21,17 @@ class ResponseModel():
 
     # __________________________________________________________________________
     def fit(self, X, y):
-        g0_mask = (X['group']==0.0)
-        features = [f for f in X.columns if f not in ['group','converted']]
+        g0_mask = (X['group'] == 0.0)
+        features = [f for f in X.columns if f not in ['group', 'converted']]
         self.estimator.fit(
-            X.ix[g0_mask,features],
+            X.ix[g0_mask, features],
             y[g0_mask]
         )
 
     # __________________________________________________________________________
     def predict_proba(self, X):
-        features = [f for f in X.columns if f not in ['group','converted']]
-        return self.estimator.predict_proba(X.loc[:,features])
+        features = [f for f in X.columns if f not in ['group', 'converted']]
+        return self.estimator.predict_proba(X.loc[:, features])
 
 
 # __________________________________________________________ResponseRevenueModel
@@ -52,23 +52,23 @@ class ResponseRevenueModel():
 
     # __________________________________________________________________________
     def fit(self, X, y):
-        g0_mask = (X['group']==0.0)
+        g0_mask = (X['group'] == 0.0)
         features = [
-            f for f in X.columns 
-            if f not in ['group','label','converted','timestamp']
+            f for f in X.columns
+            if f not in ['group', 'label', 'converted', 'timestamp']
         ]
         self.estimator.fit(
-            X.ix[g0_mask,features],
+            X.ix[g0_mask, features],
             y[g0_mask]
         )
 
     # __________________________________________________________________________
     def predict_proba(self, X):
         features = [
-            f for f in X.columns 
-            if f not in ['group','label','converted','timestamp']
+            f for f in X.columns
+            if f not in ['group', 'label', 'converted', 'timestamp']
         ]
-        return self.estimator.predict(X.loc[:,features])
+        return self.estimator.predict(X.loc[:, features])
 
 
 
@@ -225,7 +225,7 @@ class NaiveTwoModel():
 
         # set mandatory variables used by SLIB
         self.name = 'NaiveTwoModel'
-        self.target = 'label'
+        self.target = 'converted'
         self.extra_features = ['group']
         self.params = vars(estimator)
         self.params['classifier_name'] = estimator.__class__.__name__
@@ -257,8 +257,6 @@ class NaiveTwoModel():
         r2 = self.estimator_2.predict_proba(X.ix[:, features])
 
         return r1-r2
-
-
 
 
 # __________________________________________________________NaiveTwoModelRevenue
@@ -347,6 +345,9 @@ class LoModel():
         df = deepcopy(X)
         self.features = [f for f in df.columns if f not in ['converted']]
 
+        # Must invert since the method needs T=1, C=0, we have T=0, C=1!
+        df['group'] = ~df['group']
+
         interaction_features = []
 
         for f in self.features:
@@ -361,6 +362,8 @@ class LoModel():
             df['group']=group
 
         self.features += interaction_features
+
+        assert('group' in self.features)
 
         return df
 
@@ -409,14 +412,14 @@ class LoRevenueModel():
 
         for f in self.features:
             iFeature = 'I-'+f
-            if group==None:
+            if group == None:
                 df[iFeature] = df[f]*df['group']
             else:
                 df[iFeature] = df[f]*group
             interaction_features.append(iFeature)
 
-        if group!=None:
-            df['group']=group
+        if group != None:
+            df['group'] = group
 
         self.features += interaction_features
 
@@ -467,14 +470,18 @@ class TianModel():
 
         for f in self.features:
             iFeature = 'I-'+f
-            if group==None:
-                df[iFeature] = (df[f]-df[f].mean())*(2*df['group']-1)*0.5
+            if group == None:
+                df[iFeature] = (df[f]-df[f].astype(np.float64).mean())*(2*df['group']-1)*0.5
             else:
-                df[iFeature] = (df[f]-df[f].mean())*(2*group-1)*0.5
+                df[iFeature] = (df[f]-df[f].astype(np.float64).mean())*(2*group-1)*0.5
             interaction_features.append(iFeature)
 
-        if group!=None:
-            df['group']=group
+            num_nan = df[iFeature].isnull().sum()
+            if num_nan > 0:
+                print('ERROR: Got NaNs. Feature is {0}.'.format(df[f].dtype))
+
+        if group != None:
+            df['group'] = group
 
         self.features += interaction_features
 
@@ -526,14 +533,18 @@ class TianRevenueModel():
 
         for f in self.features:
             iFeature = 'I-'+f
-            if group==None:
-                df[iFeature] = (df[f]-df[f].mean())*(2*df['group']-1)*0.5
+            if group == None:
+                df[iFeature] = (df[f]-df[f].astype(np.float64).mean())*(2*df['group']-1)*0.5
             else:
-                df[iFeature] = (df[f]-df[f].mean())*(2*group-1)*0.5
+                df[iFeature] = (df[f]-df[f].astype(np.float64).mean())*(2*group-1)*0.5
             interaction_features.append(iFeature)
 
-        if group!=None:
-            df['group']=group
+            num_nan = df[iFeature].isnull().sum()
+            if num_nan > 0:
+                print('ERROR: Got NaNs. Feature is {0}.'.format(df[f].dtype))
+
+        if group != None:
+            df['group'] = group
 
         self.features += interaction_features
 
@@ -561,32 +572,27 @@ class ReflectiveUplift():
     # __________________________________________________________________________
     def fit(self, X, y):
         # not converted group
-        c0_mask = (X['converted']==0.0)
+        c0_mask = (X['converted'] == 0.0)
         # converted group
-        c1_mask = (X['converted']==1.0)
+        c1_mask = (X['converted'] == 1.0)
         # treatment group
-        g0_mask = (X['group']==0.0)
+        g0_mask = (X['group'] == 0.0)
         # control group
-        g1_mask = (X['group']==1.0)
+        g1_mask = (X['group'] == 1.0)
 
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        TR  = g0_mask & c1_mask
-        TNR = g0_mask & c0_mask
-        CR  = g1_mask & c1_mask
-        CNR = g1_mask & c0_mask
-
-        length = len(X)
-        self.TR  = np.sum(TR)/length
-        self.TNR = np.sum(TNR)/length
-        self.CR  = np.sum(CR)/length
-        self.CNR = np.sum(CNR)/length
+        inv_length = 1.0/len(X)
+        self.TR = np.sum(g0_mask & c1_mask)*inv_length
+        self.TNR = np.sum(g0_mask & c0_mask)*inv_length
+        self.CR = np.sum(g1_mask & c1_mask)*inv_length
+        self.CNR = np.sum(g1_mask & c0_mask)*inv_length
 
         y_R = np.zeros(len(X[c1_mask]))
-        y_R[np.array(X.loc[c1_mask,'group']==0.0, dtype=np.bool)] = 1.0
+        y_R[np.array(X.loc[c1_mask, 'group'] == 0.0, dtype=np.bool)] = 1.0
 
         y_NR = np.zeros(len(X[c0_mask]))
-        y_NR[np.array(X.loc[c0_mask,'group']==0.0, dtype=np.bool)] = 1.0
+        y_NR[np.array(X.loc[c0_mask, 'group'] == 0.0, dtype=np.bool)] = 1.0
 
         # train the classifiers
         self.estimator_1.fit(
@@ -617,13 +623,14 @@ class ReflectiveUplift():
 
 # _____________________________________________________________ReflectiveUplift4
 class ReflectiveUplift4():
-    # Supporting Features: 'group', 'converted'
-    # Shaar2016, but with one multiclass model instead of two binary classifier.
+    """Shaar2016, but with one multiclass model instead of two binary classifier.
+    Supporting Features: 'group', 'converted'
 
-    # AB==0: TNR
-    # AB==1: TR
-    # AB==2: CNR
-    # AB==3: CR
+    AB==0: TNR
+    AB==1: TR
+    AB==2: CNR
+    AB==3: CR
+    """
 
     # __________________________________________________________________________
     def __init__(self, estimator):
@@ -645,17 +652,11 @@ class ReflectiveUplift4():
         g0_mask = (X['group']==0.0)     # treatment group
         g1_mask = (X['group']==1.0)     # control group
 
-        TR  = g0_mask & c1_mask
-        TNR = g0_mask & c0_mask
-        CR  = g1_mask & c1_mask
-        CNR = g1_mask & c0_mask
-
-        length = len(X)
-        self.TR  = np.sum(TR)/length
-        self.TNR = np.sum(TNR)/length
-        self.CR  = np.sum(CR)/length
-        self.CNR = np.sum(CNR)/length
-        # self.uplift = uplift_score(X)
+        inv_length = 1.0/len(X)
+        self.TR  = np.sum(g0_mask & c1_mask)*inv_length
+        self.TNR = np.sum(g0_mask & c0_mask)*inv_length
+        self.CR  = np.sum(g1_mask & c1_mask)*inv_length
+        self.CNR = np.sum(g1_mask & c0_mask)*inv_length
 
         # train the classifiers
         self.estimator.fit(X.ix[:,self.features], y)
@@ -663,21 +664,6 @@ class ReflectiveUplift4():
     # __________________________________________________________________________
     def predict_proba(self, X):
         r = self.estimator.predict_proba(X.ix[:,self.features])
-
-        # AB==0: TNR
-        # AB==1: TR
-        # AB==2: CNR
-        # AB==3: CR
-
-        # TODO: [BUG] RuntimeWarning: invalid value encountered in true_divide
-        '''
-        /home/RDC/radmerti.hub/code/uplift/models.py:445: RuntimeWarning: i
-        nvalid value encountered in true_divide
-        up_pos = r[:,1]/(r[:,0]+r[:,1])
-        /home/RDC/radmerti.hub/code/uplift/models.py:446: RuntimeWarning: 
-        invalid value encountered in true_divide
-        up_neg = r[:,3]/(r[:,2]+r[:,3])
-        '''
 
         p = np.zeros((len(X),2))
 
@@ -734,10 +720,12 @@ class PessimisticUplift():
 
 # _________________________________________________________________RealistUplift
 class RealistUplift():
-    # Supporting Features: 'group', 'converted'
-    # modificatin of Shaar2016: 
-    # Assumption that all customers in CNR count towards the positive uplift
-    # is not realistc. Weight by overall uplift effect.
+    """Modificatin of Shaar2016's Reflective Uplift Model
+    Assumption that all customers in CNR count towards the positive uplift
+    is not realistc. Weight by overall uplift effect.
+
+    Supporting Features: 'group', 'converted'
+    """
 
     # __________________________________________________________________________
     def __init__(self, estimator):
@@ -764,17 +752,11 @@ class RealistUplift():
 
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        TR  = g0_mask & c1_mask
-        TNR = g0_mask & c0_mask
-        CR  = g1_mask & c1_mask
-        CNR = g1_mask & c0_mask
-
-        length = len(X)
-        self.TR  = np.sum(TR)/length
-        self.TNR = np.sum(TNR)/length
-        self.CR  = np.sum(CR)/length
-        self.CNR = np.sum(CNR)/length
-
+        inv_length = 1.0/len(X)
+        self.TR  = np.sum(g0_mask & c1_mask)*inv_length
+        self.TNR = np.sum(g0_mask & c0_mask)*inv_length
+        self.CR  = np.sum(g1_mask & c1_mask)*inv_length
+        self.CNR = np.sum(g1_mask & c0_mask)*inv_length
         self.uplift = uplift_score(X)
 
         y_R = np.zeros(len(X[c1_mask]))
@@ -811,6 +793,61 @@ class RealistUplift():
         return p
 
 
+# _________________________________________________________________________Kane4
+class Kane4():
+    """Kane, et al., 2014
+    
+    AB_Class==0: TN
+    AB_Class==1: TR
+    AB_Class==2: CN
+    AB_Class==3: CR
+    """
+
+    # __________________________________________________________________________
+    def __init__(self, estimator):
+        self.estimator = estimator
+
+        # set mandatory variables used by SLIB
+        self.name = 'Kane'
+        self.target = 'AB_Class'
+        self.extra_features = ['group', 'converted']
+        self.params = vars(estimator)
+        self.params['classifier_name'] = estimator.__class__.__name__
+
+    # __________________________________________________________________________
+    def fit(self, X, y):
+        self.features = [f for f in X.columns if f not in self.extra_features]
+
+        c0_mask = (X['converted'] == 0.0) # not converted group
+        c1_mask = (X['converted'] == 1.0) # converted group
+        g0_mask = (X['group'] == 0.0)     # treatment group
+        g1_mask = (X['group'] == 1.0)     # control group
+
+        length = np.float64(len(X))
+        self.TR  = np.float64(np.sum(g0_mask & c1_mask))/length
+        self.TNR = np.float64(np.sum(g0_mask & c0_mask))/length
+        self.CR  = np.float64(np.sum(g1_mask & c1_mask))/length
+        self.CNR = np.float64(np.sum(g1_mask & c0_mask))/length
+        self.T = self.TR + self.TNR
+        self.C = self.CR + self.CNR
+
+        # train the classifiers
+        self.estimator.fit(X.ix[:, self.features], y)
+
+    # __________________________________________________________________________
+    def predict_proba(self, X):
+        r = self.estimator.predict_proba(X.ix[:, self.features])
+
+        p = np.zeros((len(X), 2))
+
+        up_pos = r[:, 1]/self.T + r[:, 2]/self.C
+        up_neg = r[:, 0]/self.T + r[:, 3]/self.C
+
+        p[:,1] = up_pos - up_neg
+        p[:,0] = 1.0-p[:,1]
+
+        return p
+
 # ________________________________________________________________RealistUplift4
 class RealistUplift4():
     # Supporting Features: 'group', 'converted'
@@ -843,16 +880,11 @@ class RealistUplift4():
         g0_mask = (X['group']==0.0)     # treatment group
         g1_mask = (X['group']==1.0)     # control group
 
-        TR  = g0_mask & c1_mask
-        TNR = g0_mask & c0_mask
-        CR  = g1_mask & c1_mask
-        CNR = g1_mask & c0_mask
-
-        length = len(X)
-        self.TR  = np.sum(TR)/length
-        self.TNR = np.sum(TNR)/length
-        self.CR  = np.sum(CR)/length
-        self.CNR = np.sum(CNR)/length
+        length = np.float64(len(X))
+        self.TR  = np.sum(g0_mask & c1_mask)/length
+        self.TNR = np.sum(g0_mask & c0_mask)/length
+        self.CR  = np.sum(g1_mask & c1_mask)/length
+        self.CNR = np.sum(g1_mask & c0_mask)/length
         self.uplift = uplift_score(X)
 
         # train the classifiers
