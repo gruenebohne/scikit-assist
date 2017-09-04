@@ -127,7 +127,7 @@ class JaskowskiTransformationModel():
 # _____________________________________________________SzymonTransformationModel
 class SzymonTransformationModel():
     # Supporting Features: None
-    # Szymon: continuous response transformation 
+    # Szymon: continuous response transformation
 
     # __________________________________________________________________________
     def __init__(self, estimator):
@@ -153,7 +153,7 @@ class SzymonTransformationModel():
 # _____________________________________________DiscreteSzymonTransformationModel
 class DiscreteSzymonTransformationModel():
     # Supporting Features: None
-    # Szymon: response discretization 
+    # Szymon: response discretization
 
     # __________________________________________________________________________
     def __init__(self, estimator):
@@ -207,8 +207,8 @@ class LaisTransformationModel():
     def predict_proba(self, X):
         proba = self.estimator.predict_proba(X)
 
-        proba[:,1] = proba[:,1]*self.pos_ratio - proba[:,0]*self.neg_ratio
-        proba[:,0] = 1.0 - proba[:,1]
+        proba[:, 1] = proba[:, 1]*self.pos_ratio - proba[:, 0]*self.neg_ratio
+        proba[:, 0] = 1.0 - proba[:, 1]
 
         return proba
 
@@ -233,9 +233,9 @@ class NaiveTwoModel():
     # __________________________________________________________________________
     def fit(self, X, y):
         # treatment group
-        g0_mask = (X['group']==0.0)
+        g0_mask = (X['group'] == 0.0)
         # control group
-        g1_mask = (X['group']==1.0)
+        g1_mask = (X['group'] == 1.0)
 
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
@@ -278,9 +278,9 @@ class NaiveTwoModelRevenue():
     # __________________________________________________________________________
     def fit(self, X, y):
         # treatment group
-        g0_mask = (X['group']==0.0)
+        g0_mask = (X['group'] == 0.0)
         # control group
-        g1_mask = (X['group']==1.0)
+        g1_mask = (X['group'] == 1.0)
 
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
@@ -352,18 +352,18 @@ class LoModel():
 
         for f in self.features:
             iFeature = 'I-'+f
-            if group==None:
+            if group == None:
                 df[iFeature] = df[f]*df['group']
             else:
                 df[iFeature] = df[f]*group
             interaction_features.append(iFeature)
 
-        if group!=None:
-            df['group']=group
+        if group != None:
+            df['group'] = group
 
         self.features += interaction_features
 
-        assert('group' in self.features)
+        assert 'group' in self.features
 
         return df
 
@@ -596,28 +596,28 @@ class ReflectiveUplift():
 
         # train the classifiers
         self.estimator_1.fit(
-            X.ix[c1_mask,features],
+            X.ix[c1_mask, features],
             y_R
         )
         self.estimator_2.fit(
-            X.ix[c0_mask,features],
+            X.ix[c0_mask, features],
             y_NR
         )
-        
+
     # __________________________________________________________________________
     def predict_proba(self, X):
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        r1 = self.estimator_1.predict_proba(X.ix[:,features])[:,1]
-        r2 = self.estimator_2.predict_proba(X.ix[:,features])[:,1]
+        r1 = self.estimator_1.predict_proba(X.ix[:, features])[:, 1]
+        r2 = self.estimator_2.predict_proba(X.ix[:, features])[:, 1]
 
-        p = np.zeros((len(X),2))
+        p = np.zeros((len(X), 2))
 
         up_pos = r1*self.TR + (1.0-r2)*self.CNR
         up_neg = r2*self.TNR + (1.0-r1)*self.CR
 
-        p[:,1] = up_pos - up_neg
-        p[:,0] = 1.0-p[:,1]
+        p[:, 1] = up_pos - up_neg
+        p[:, 0] = 1.0-p[:, 1]
 
         return p
 
@@ -647,39 +647,39 @@ class ReflectiveUplift4():
     def fit(self, X, y):
         self.features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        c0_mask = (X['converted']==0.0) # not converted group
-        c1_mask = (X['converted']==1.0) # converted group
-        g0_mask = (X['group']==0.0)     # treatment group
-        g1_mask = (X['group']==1.0)     # control group
+        c0_mask = (X['converted'] == 0.0) # not converted group
+        c1_mask = (X['converted'] == 1.0) # converted group
+        g0_mask = (X['group'] == 0.0)     # treatment group
+        g1_mask = (X['group'] == 1.0)     # control group
 
-        inv_length = 1.0/len(X)
-        self.TR  = np.sum(g0_mask & c1_mask)*inv_length
-        self.TNR = np.sum(g0_mask & c0_mask)*inv_length
-        self.CR  = np.sum(g1_mask & c1_mask)*inv_length
-        self.CNR = np.sum(g1_mask & c0_mask)*inv_length
+        length = np.float64(len(X))
+        self.TR = np.sum(g0_mask & c1_mask)/length
+        self.TNR = np.sum(g0_mask & c0_mask)/length
+        self.CR = np.sum(g1_mask & c1_mask)/length
+        self.CNR = np.sum(g1_mask & c0_mask)/length
 
         # train the classifiers
-        self.estimator.fit(X.ix[:,self.features], y)
+        self.estimator.fit(X.ix[:, self.features], y)
 
     # __________________________________________________________________________
     def predict_proba(self, X):
-        r = self.estimator.predict_proba(X.ix[:,self.features])
+        r = self.estimator.predict_proba(X.ix[:, self.features])
 
-        p = np.zeros((len(X),2))
+        p = np.zeros((len(X), 2))
 
-        div_pos = r[:,0]+r[:,1]
-        div_neg = r[:,2]+r[:,3]
+        div_pos = r[:, 0]+r[:, 1]
+        div_neg = r[:, 2]+r[:, 3]
 
         # avoid division by zero by setting to a small non-zero value
         eps = 0.001
-        div_pos[div_pos==0.0] = eps
-        div_neg[div_neg==0.0] = eps
+        div_pos[div_pos == 0.0] = eps
+        div_neg[div_neg == 0.0] = eps
 
-        up_pos = r[:,1]/div_pos
-        up_neg = r[:,3]/div_neg
+        up_pos = r[:, 1]/div_pos
+        up_neg = r[:, 3]/div_neg
 
-        p[:,1] = up_pos - up_neg
-        p[:,0] = 1.0-p[:,1]
+        p[:, 1] = up_pos - up_neg
+        p[:, 0] = 1.0-p[:, 1]
 
         return p
 
@@ -706,14 +706,14 @@ class PessimisticUplift():
         self.reflective.fit(X, y)
 
         # Lai's Model:
-        self.lais.fit(X.loc[:,features], y)
+        self.lais.fit(X.loc[:, features], y)
 
     # __________________________________________________________________________
     def predict_proba(self, X):
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        p_ref = self.reflective.predict_proba(X.loc[:,features])
-        p_lai = self.lais.predict_proba(X.loc[:,features])
+        p_ref = self.reflective.predict_proba(X.loc[:, features])
+        p_lai = self.lais.predict_proba(X.loc[:, features])
 
         return 0.5*(p_ref + p_lai)
 
@@ -742,36 +742,36 @@ class RealistUplift():
     # __________________________________________________________________________
     def fit(self, X, y):
         # not converted group
-        c0_mask = (X['converted']==0.0)
+        c0_mask = (X['converted'] == 0.0)
         # converted group
-        c1_mask = (X['converted']==1.0)
+        c1_mask = (X['converted'] == 1.0)
         # treatment group
-        g0_mask = (X['group']==0.0)
+        g0_mask = (X['group'] == 0.0)
         # control group
-        g1_mask = (X['group']==1.0)
+        g1_mask = (X['group'] == 1.0)
 
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        inv_length = 1.0/len(X)
-        self.TR  = np.sum(g0_mask & c1_mask)*inv_length
-        self.TNR = np.sum(g0_mask & c0_mask)*inv_length
-        self.CR  = np.sum(g1_mask & c1_mask)*inv_length
-        self.CNR = np.sum(g1_mask & c0_mask)*inv_length
+        length = np.float64(len(X))
+        self.TR = np.sum(g0_mask & c1_mask)/length
+        self.TNR = np.sum(g0_mask & c0_mask)/length
+        self.CR = np.sum(g1_mask & c1_mask)/length
+        self.CNR = np.sum(g1_mask & c0_mask)/length
         self.uplift = uplift_score(X)
 
         y_R = np.zeros(len(X[c1_mask]))
-        y_R[np.array(X.loc[c1_mask,'group']==0.0, dtype=np.bool)] = 1.0
+        y_R[np.array(X.loc[c1_mask, 'group'] == 0.0, dtype=np.bool)] = 1.0
 
         y_NR = np.zeros(len(X[c0_mask]))
-        y_NR[np.array(X.loc[c0_mask,'group']==0.0, dtype=np.bool)] = 1.0
+        y_NR[np.array(X.loc[c0_mask, 'group'] == 0.0, dtype=np.bool)] = 1.0
 
         # train the classifiers
         self.estimator_1.fit(
-            X.ix[c1_mask,features],
+            X.ix[c1_mask, features],
             y_R
         )
         self.estimator_2.fit(
-            X.ix[c0_mask,features],
+            X.ix[c0_mask, features],
             y_NR
         )
 
@@ -779,16 +779,16 @@ class RealistUplift():
     def predict_proba(self, X):
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        r1 = self.estimator_1.predict_proba(X.ix[:,features])[:,1]
-        r2 = self.estimator_2.predict_proba(X.ix[:,features])[:,1]
+        r1 = self.estimator_1.predict_proba(X.ix[:, features])[:, 1]
+        r2 = self.estimator_2.predict_proba(X.ix[:, features])[:, 1]
 
-        p = np.zeros((len(X),2))
+        p = np.zeros((len(X), 2))
 
         up_pos = r1*self.TR + self.uplift*(1.0-r2)*self.CNR
         up_neg = r2*self.TNR + (1.0-r1)*self.CR
 
-        p[:,1] = up_pos - up_neg
-        p[:,0] = 1.0-p[:,1]
+        p[:, 1] = up_pos - up_neg
+        p[:, 0] = 1.0-p[:, 1]
 
         return p
 
@@ -796,7 +796,7 @@ class RealistUplift():
 # _________________________________________________________________________Kane4
 class Kane4():
     """Kane, et al., 2014
-    
+
     AB_Class==0: TN
     AB_Class==1: TR
     AB_Class==2: CN
@@ -824,9 +824,9 @@ class Kane4():
         g1_mask = (X['group'] == 1.0)     # control group
 
         length = np.float64(len(X))
-        self.TR  = np.float64(np.sum(g0_mask & c1_mask))/length
+        self.TR = np.float64(np.sum(g0_mask & c1_mask))/length
         self.TNR = np.float64(np.sum(g0_mask & c0_mask))/length
-        self.CR  = np.float64(np.sum(g1_mask & c1_mask))/length
+        self.CR = np.float64(np.sum(g1_mask & c1_mask))/length
         self.CNR = np.float64(np.sum(g1_mask & c0_mask))/length
         self.T = self.TR + self.TNR
         self.C = self.CR + self.CNR
@@ -843,15 +843,15 @@ class Kane4():
         up_pos = r[:, 1]/self.T + r[:, 2]/self.C
         up_neg = r[:, 0]/self.T + r[:, 3]/self.C
 
-        p[:,1] = up_pos - up_neg
-        p[:,0] = 1.0-p[:,1]
+        p[:, 1] = up_pos - up_neg
+        p[:, 0] = 1.0-p[:, 1]
 
         return p
 
 # ________________________________________________________________RealistUplift4
 class RealistUplift4():
     # Supporting Features: 'group', 'converted'
-    # modificatin of Shaar2016: 
+    # modificatin of Shaar2016:
     # Assumption that all customers in CNR count towards the positive uplift
     # is not realistc. Weight by overall uplift effect.
 
@@ -875,32 +875,32 @@ class RealistUplift4():
     def fit(self, X, y):
         self.features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        c0_mask = (X['converted']==0.0) # not converted group
-        c1_mask = (X['converted']==1.0) # converted group
-        g0_mask = (X['group']==0.0)     # treatment group
-        g1_mask = (X['group']==1.0)     # control group
+        c0_mask = (X['converted'] == 0.0) # not converted group
+        c1_mask = (X['converted'] == 1.0) # converted group
+        g0_mask = (X['group'] == 0.0)     # treatment group
+        g1_mask = (X['group'] == 1.0)     # control group
 
         length = np.float64(len(X))
-        self.TR  = np.sum(g0_mask & c1_mask)/length
+        self.TR = np.sum(g0_mask & c1_mask)/length
         self.TNR = np.sum(g0_mask & c0_mask)/length
-        self.CR  = np.sum(g1_mask & c1_mask)/length
+        self.CR = np.sum(g1_mask & c1_mask)/length
         self.CNR = np.sum(g1_mask & c0_mask)/length
         self.uplift = uplift_score(X)
 
         # train the classifiers
-        self.estimator.fit(X.ix[:,self.features], y)
+        self.estimator.fit(X.ix[:, self.features], y)
 
     # __________________________________________________________________________
     def predict_proba(self, X):
-        r = self.estimator.predict_proba(X.ix[:,self.features])
+        r = self.estimator.predict_proba(X.ix[:, self.features])
 
-        p = np.zeros((len(X),2))
+        p = np.zeros((len(X), 2))
 
-        up_pos = self.TR*r[:,1] + self.CNR*self.uplift*r[:,2]
-        up_neg = self.TNR*r[:,0] + self.CR*r[:,3]
+        up_pos = self.TR*r[:, 1] + self.CNR*self.uplift*r[:, 2]
+        up_neg = self.TNR*r[:, 0] + self.CR*r[:,3]
 
-        p[:,1] = up_pos - up_neg
-        p[:,0] = 1.0-p[:,1]
+        p[:, 1] = up_pos - up_neg
+        p[:, 0] = 1.0-p[:, 1]
 
         return p
 
@@ -928,13 +928,13 @@ class DepressedUplift():
         self.reflective.fit(X, y)
 
         # Lai's Model:
-        self.lais.fit(X.loc[:,features], y)
+        self.lais.fit(X.loc[:, features], y)
 
     # __________________________________________________________________________
     def predict_proba(self, X):
         features = [f for f in X.columns if f not in ['group', 'converted']]
 
-        p_ref = self.reflective.predict_proba(X.loc[:,features])
-        p_lai = self.lais.predict_proba(X.loc[:,features])
+        p_ref = self.reflective.predict_proba(X.loc[:, features])
+        p_lai = self.lais.predict_proba(X.loc[:, features])
 
         return 0.5*(p_ref + p_lai)
