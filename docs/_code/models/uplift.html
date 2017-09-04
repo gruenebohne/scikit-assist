@@ -1,16 +1,13 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>uplift &#8212; scikit-assist 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -36,7 +33,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -98,6 +95,36 @@
             
   <div class="section" id="module-skassist.models.uplift">
 <span id="uplift"></span><h1>uplift<a class="headerlink" href="#module-skassist.models.uplift" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="skassist.models.uplift.Kane4">
+<em class="property">class </em><code class="descclassname">skassist.models.uplift.</code><code class="descname">Kane4</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.models.uplift.Kane4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kane, et al., 2014</p>
+<p>AB_Class==0: TN
+AB_Class==1: TR
+AB_Class==2: CN
+AB_Class==3: CR</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="skassist.models.uplift.RealistUplift">
+<em class="property">class </em><code class="descclassname">skassist.models.uplift.</code><code class="descname">RealistUplift</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.models.uplift.RealistUplift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modificatin of Shaar2016’s Reflective Uplift Model
+Assumption that all customers in CNR count towards the positive uplift
+is not realistc. Weight by overall uplift effect.</p>
+<p>Supporting Features: ‘group’, ‘converted’</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="skassist.models.uplift.ReflectiveUplift4">
+<em class="property">class </em><code class="descclassname">skassist.models.uplift.</code><code class="descname">ReflectiveUplift4</code><span class="sig-paren">(</span><em>estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#skassist.models.uplift.ReflectiveUplift4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shaar2016, but with one multiclass model instead of two binary classifier.
+Supporting Features: ‘group’, ‘converted’</p>
+<p>AB==0: TNR
+AB==1: TR
+AB==2: CNR
+AB==3: CR</p>
+</dd></dl>
+
 </div>
 
 
